@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maze Bank — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #030712;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-hover: rgba(255, 255, 255, 0.10);
+      --surface-panel: rgba(17, 24, 39, 0.80);
+      --text: #F1F5F9;
+      --text-muted: #CBD5E1;
+      --text-dim: #94A3B8;
+      --ring: rgba(255, 255, 255, 0.10);
+      --pink: #FF69B4;
+      --pink-light: #FF8DC7;
+      --pink-deep: #FF1493;
+      --rose: #F43F5E;
+      --emerald: #34D399;
+      --gradient-brand: linear-gradient(to right, #FF69B4, #FF1493, #F43F5E);
+      --font: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── AMBIENT GLOWS (Rosa #FF69B4) ─────────────── */
+    .ambient-glows {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -10;
+      overflow: hidden;
+    }
+
+    .glow-1 {
+      position: absolute;
+      top: -6rem;
+      left: -6rem;
+      width: 20rem;
+      height: 20rem;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.20);
+      filter: blur(64px);
+    }
+
+    .glow-2 {
+      position: absolute;
+      top: 10rem;
+      right: -6rem;
+      width: 24rem;
+      height: 24rem;
+      border-radius: 9999px;
+      background: rgba(255, 20, 147, 0.20);
+      filter: blur(64px);
+    }
+
+    .glow-3 {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40rem;
+      height: 16rem;
+      border-radius: 9999px;
+      background: linear-gradient(to right, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.2), rgba(244, 63, 94, 0.2));
+      filter: blur(64px);
+    }
+
+    /* ─── BORDER-GRADIENT (assinatura do Maze Bank) ─ */
+    .border-gradient {
+      position: relative;
+    }
+
+    .border-gradient::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      background: linear-gradient(225deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+    }
+
+    /* ─── CONTAINER & GRID ────────────────────────── */
+    .container {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.10), transparent);
+    }
+
+    /* ─── TOP NAV (idêntica ao index.html) ────────── */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--gradient-brand);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* ─── BUTTONS (Tailwind-like) ─────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      height: 2.75rem;
+      padding: 0 1.25rem;
+      background: var(--gradient-brand);
+      color: #fff;
+      box-shadow: 0 10px 15px -3px rgba(255, 105, 180, 0.35);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-glass {
+      height: 2.5rem;
+      padding: 0 1rem;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .btn-glass:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+
+    .btn-white {
+      height: 2.75rem;
+      padding: 0 1.25rem;
+      background: #fff;
+      color: #111827;
+      box-shadow: 0 10px 15px -3px rgba(255, 105, 180, 0.2);
+    }
+
+    .btn-white:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+    }
+
+    /* ─── BADGES (Pill) ───────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 9999px;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+
+    .badge-dot {
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 9999px;
+      background: var(--gradient-brand);
+    }
+
+    .badge-dot-emerald {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: #34D399;
+    }
+
+    /* ─── HERO SECTION (estilo idêntico ao site) ──── */
+    .hero {
+      position: relative;
+      padding: 5rem 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      color: #fff;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 36rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-meta-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 0.5rem;
+      background: var(--surface);
+      display: grid;
+      place-items: center;
+    }
+
+    /* Hero preview card (simulando UI real do Maze Bank) */
+    .hero-card {
+      border-radius: 1.5rem;
+      background: var(--surface);
+      padding: 1.75rem;
+      box-shadow: 0 25px 50px -12px rgba(255, 20, 147, 0.25);
+      backdrop-filter: blur(16px);
+    }
+
+    .card-balance-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .card-balance-value {
+      font-size: 2.25rem;
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      color: #fff;
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .card-spark {
+      height: 6px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+
+    .card-spark-fill {
+      height: 100%;
+      width: 72%;
+      border-radius: 9999px;
+      background: var(--gradient-brand);
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    /* ─── QUICK NAV (estilo pills do Maze) ────────── */
+    .quicknav-wrap {
+      position: sticky;
+      top: 73px;
+      z-index: 40;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 0.875rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .quicknav {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .quicknav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .quicknav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--surface);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .quicknav-pill:hover,
+    .quicknav-pill.active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .quicknav-num {
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 0.6875rem;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ─── SECTIONS ────────────────────────────────── */
+    .section {
+      position: relative;
+      padding: 5rem 0;
+    }
+
+    .section-head {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.15);
+      color: #FF8DC7;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.875rem, 4vw, 2.5rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: #fff;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      max-width: 42rem;
+    }
+
+    /* ─── COLOR PALETTE (estilo cards do Maze) ────── */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .color-card {
+      border-radius: 1rem;
+      background: var(--surface);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .color-card:hover {
+      transform: translateY(-2px);
+      background: var(--surface-hover);
+    }
+
+    .color-swatch {
+      height: 4.5rem;
+      position: relative;
+    }
+
+    .color-body {
+      padding: 0.75rem;
+    }
+
+    .color-hex {
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: monospace;
+      color: #fff;
+    }
+
+    .color-name {
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .brand-gradient-card {
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      margin-top: 1.5rem;
+      cursor: pointer;
+    }
+
+    .brand-gradient-bar {
+      height: 3.5rem;
+      border-radius: 0.75rem;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      color: #fff;
+      font-family: monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 10px 15px -3px rgba(255, 105, 180, 0.35);
+    }
+
+    /* ─── TYPOGRAPHY DISPLAY ──────────────────────── */
+    .type-specimen {
+      border-radius: 1.25rem;
+      background: var(--surface);
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      align-items: baseline;
+    }
+
+    .type-row:last-child {
+      border-bottom: none;
+    }
+
+    .type-meta {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .type-meta strong {
+      color: #FF8DC7;
+      display: block;
+      font-size: 0.8125rem;
+    }
+
+    /* ─── SPACING / RADIUS / SHADOWS ──────────────── */
+    .spacing-table {
+      border-radius: 1.25rem;
+      background: var(--surface);
+      padding: 1.5rem;
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .space-row {
+      display: grid;
+      grid-template-columns: 80px 60px 1fr 140px;
+      gap: 1rem;
+      align-items: center;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+
+    .space-bar-bg {
+      height: 6px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .space-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: var(--gradient-brand);
+    }
+
+    .radius-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .radius-card {
+      border-radius: 1rem;
+      background: var(--surface);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .radius-preview {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin: 0 auto 0.75rem;
+      background: var(--surface-hover);
+      border: 1px solid rgba(255, 105, 180, 0.4);
+    }
+
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .shadow-card {
+      border-radius: 1.25rem;
+      background: var(--surface);
+      padding: 1.5rem;
+    }
+
+    .shadow-sample {
+      height: 5rem;
+      border-radius: 0.75rem;
+      background: #111827;
+      margin-bottom: 1rem;
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: monospace;
+    }
+
+    /* ─── COMPONENTS SHOWCASE ─────────────────────── */
+    .component-group {
+      border-radius: 1.5rem;
+      background: var(--surface);
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .component-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 1.25rem;
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      max-width: 22rem;
+      height: 2.75rem;
+      padding: 0 1rem;
+      border-radius: 0.75rem;
+      background: var(--surface);
+      border: none;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 0.875rem;
+    }
+
+    .input-field::placeholder {
+      color: var(--text-dim);
+    }
+
+    .input-field:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.6);
+    }
+
+    /* ─── CODE WRAPPER (Tailwind/CSS tokens) ──────── */
+    .code-box {
+      border-radius: 1.25rem;
+      background: rgba(17, 24, 39, 0.90);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+
+    .code-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .code-lang {
+      font-family: monospace;
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      padding: 0.25rem 0.625rem;
+      border-radius: 0.5rem;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 0.6875rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+
+    pre {
+      padding: 1.25rem;
+      font-family: 'Geist Mono', monospace, ui-monospace;
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #FFC2E2;
+    }
+
+    /* ─── FINAL CTA & FOOTER (idênticos ao site) ──── */
+    .cta-banner {
+      border-radius: 2rem;
+      background: var(--surface);
+      padding: 3.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      margin: 4rem 0 2rem;
+    }
+
+    .cta-glow {
+      position: absolute;
+      right: -4rem;
+      top: -4rem;
+      width: 20rem;
+      height: 20rem;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.25);
+      filter: blur(64px);
+    }
+
+    .footer {
+      padding: 3rem 0;
+      color: var(--text-dim);
+      font-size: 0.8125rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-col h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: grid;
+      gap: 0.625rem;
+    }
+
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    /* ─── TOAST NOTIFICATION ──────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      background: #111827;
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      box-shadow: 0 10px 15px -3px rgba(255, 105, 180, 0.35);
+      color: #FFC2E2;
+      font-family: monospace;
+      font-size: 0.8125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .space-row {
+        grid-template-columns: 60px 50px 1fr;
+      }
+
+      .space-row span:last-child {
+        display: none;
+      }
+
+      .type-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Ambient Glows (#FF69B4 e variações de Rosa) -->
+  <div class="ambient-glows" aria-hidden="true">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+    <div class="glow-3"></div>
+  </div>
+
+  <!-- Header / Navigation (estilo fiel ao index.html) -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-mark">M</span>
+        <span>Maze<span style="color:#FF8DC7">Bank</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#colors" class="nav-link">Cores</a>
+        <a href="#typography" class="nav-link">Tipografia</a>
+        <a href="#spacing" class="nav-link">Espaçamento</a>
+        <a href="#radius" class="nav-link">Radius</a>
+        <a href="#components" class="nav-link">Componentes</a>
+        <a href="#tokens" class="nav-link">Tokens</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-glass border-gradient">
+          <i data-lucide="arrow-left" style="width:14px;height:14px"></i>
+          <span>Voltar ao site</span>
+        </a>
+        <button class="btn btn-primary border-gradient"
+          onclick="document.getElementById('tokens').scrollIntoView({behavior:'smooth'})">
+          <span>Copiar tokens</span>
+          <i data-lucide="arrow-down" style="width:14px;height:14px"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Navigator Pills -->
+  <div class="quicknav-wrap">
+    <div class="container quicknav">
+      <a href="#colors" class="quicknav-pill border-gradient"><span class="quicknav-num">01</span> Cores</a>
+      <a href="#typography" class="quicknav-pill border-gradient"><span class="quicknav-num">02</span> Tipografia</a>
+      <a href="#spacing" class="quicknav-pill border-gradient"><span class="quicknav-num">03</span> Espaçamento</a>
+      <a href="#radius" class="quicknav-pill border-gradient"><span class="quicknav-num">04</span> Border radius</a>
+      <a href="#shadows" class="quicknav-pill border-gradient"><span class="quicknav-num">05</span> Sombras & Glow</a>
+      <a href="#components" class="quicknav-pill border-gradient"><span class="quicknav-num">06</span> Componentes</a>
+      <a href="#tokens" class="quicknav-pill border-gradient"><span class="quicknav-num">TK</span> Tokens completos</a>
+    </div>
+  </div>
+
+  <!-- Hero (idêntico à estrutura visual do Maze Bank) -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge border-gradient">
+          <span class="badge-dot"></span>
+          <span>Design System — Extraído de index.html</span>
+        </div>
+        <h1 class="hero-title">
+          Tokens, cores e componentes do <span
+            style="background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;color:transparent;">Maze
+            Bank</span>
+        </h1>
+        <p class="hero-desc">
+          Documentação visual completa da interface: paleta de superfícies de vidro, gradiente de marca rosa #FF69B4,
+          tipografia Inter e microcomponentes interativos.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary border-gradient" onclick="copyBlock('#css-tokens')">
+            <i data-lucide="copy" style="width:16px;height:16px"></i>
+            <span>Copiar CSS :root</span>
+          </button>
+          <a href="#components" class="btn btn-glass border-gradient">
+            <span>Ver componentes</span>
+            <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <div class="hero-meta-icon border-gradient"><i data-lucide="shield-check"
+                style="width:14px;height:14px;color:#FF8DC7"></i></div>
+            <span>22 tokens CSS</span>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-icon border-gradient"><i data-lucide="sparkles"
+                style="width:14px;height:14px;color:#FF69B4"></i></div>
+            <span>Rosa #FF69B4 + Glow</span>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-icon border-gradient"><i data-lucide="zap"
+                style="width:14px;height:14px;color:#34D399"></i></div>
+            <span>Tailwind escala 4px</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview de Card idêntico ao do site -->
+      <div class="hero-card border-gradient">
+        <div class="card-row">
+          <span class="badge border-gradient" style="padding:0.25rem 0.625rem">
+            <span class="badge-dot-emerald"></span>
+            Cartão Platinum Virtual
+          </span>
+          <i data-lucide="credit-card" style="width:18px;height:18px;color:#FF8DC7"></i>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="card-balance-label">Saldo em conta corrente</div>
+          <div class="card-balance-value">R$ 24.580,00</div>
+          <span class="badge" style="background:rgba(16,185,129,0.15);color:#6EE7B7;font-weight:600">
+            <i data-lucide="trending-up" style="width:12px;height:12px"></i>
+            +12.4% este mês
+          </span>
+        </div>
+        <div class="card-spark">
+          <div class="card-spark-fill"></div>
+        </div>
+        <div class="card-row">
+          <span style="color:var(--text-dim);font-size:0.75rem">Meta mensal inteligente</span>
+          <span style="font-weight:600;color:#FF8DC7;font-size:0.75rem">72% atingida</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       01 — CORES
+  ══════════════════════════════════════ -->
+  <section class="section" id="colors">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="palette" style="width:12px;height:12px"></i> 01 —
+          Cores</span>
+        <h2 class="section-title">Paleta cromática do Maze Bank</h2>
+        <p class="section-desc">Construída sobre o cinza mais escuro do Tailwind (<code>gray-950</code>) com camadas de
+          vidro translúcido e gradiente de marca vibrante centrado no <strong>Rosa #FF69B4</strong>.</p>
+      </div>
+
+      <!-- Brand Gradient -->
+      <div class="brand-gradient-card border-gradient"
+        onclick="copyText('linear-gradient(to right, #FF69B4, #FF1493, #F43F5E)')">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;font-size:0.8125rem">
+          <strong style="color:#fff">Gradiente principal de marca (CTA / Destaques)</strong>
+          <span style="color:var(--text-dim);font-family:monospace">Clique para copiar</span>
+        </div>
+        <div class="brand-gradient-bar">
+          <span>pink-primary · #FF69B4</span>
+          <span>deep-pink · #FF1493</span>
+          <span>rose-500 · #F43F5E</span>
+        </div>
+      </div>
+
+      <!-- Backgrounds / Glass -->
+      <p
+        style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin:2rem 0 0.5rem">
+        Fundos & Vidro (Camadas)
+      </p>
+      <div class="color-grid">
+        <div class="color-card border-gradient" onclick="copyText('#030712')">
+          <div class="color-swatch" style="background:#030712"></div>
+          <div class="color-body">
+            <div class="color-hex">#030712</div>
+            <div class="color-name">gray-950 · Fundo base</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#111827')">
+          <div class="color-swatch" style="background:#111827"></div>
+          <div class="color-body">
+            <div class="color-hex">#111827</div>
+            <div class="color-name">gray-900 · Superfície</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('rgba(255,255,255,0.05)')">
+          <div class="color-swatch" style="background:rgba(255,255,255,0.05)"></div>
+          <div class="color-body">
+            <div class="color-hex">white/5</div>
+            <div class="color-name">Vidro padrão</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('rgba(255,255,255,0.10)')">
+          <div class="color-swatch" style="background:rgba(255,255,255,0.10)"></div>
+          <div class="color-body">
+            <div class="color-hex">white/10</div>
+            <div class="color-name">Vidro hover</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('rgba(17,24,39,0.80)')">
+          <div class="color-swatch" style="background:rgba(17,24,39,0.80)"></div>
+          <div class="color-body">
+            <div class="color-hex">gray-900/80</div>
+            <div class="color-name">Painel modal</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#FFFFFF')">
+          <div class="color-swatch" style="background:#FFFFFF"></div>
+          <div class="color-body">
+            <div class="color-hex" style="color:#000">#FFFFFF</div>
+            <div class="color-name">Branco contraste</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accent / Brand (Pink #FF69B4) -->
+      <p
+        style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin:2rem 0 0.5rem">
+        Cores de Acento (Rosa #FF69B4 / Aura / Glow)
+      </p>
+      <div class="color-grid">
+        <div class="color-card border-gradient" onclick="copyText('#FF69B4')">
+          <div class="color-swatch" style="background:#FF69B4"></div>
+          <div class="color-body">
+            <div class="color-hex">#FF69B4</div>
+            <div class="color-name">pink · Principal</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#FF8DC7')">
+          <div class="color-swatch" style="background:#FF8DC7"></div>
+          <div class="color-body">
+            <div class="color-hex">#FF8DC7</div>
+            <div class="color-name">pink-light</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#FF1493')">
+          <div class="color-swatch" style="background:#FF1493"></div>
+          <div class="color-body">
+            <div class="color-hex">#FF1493</div>
+            <div class="color-name">deep-pink</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#F43F5E')">
+          <div class="color-swatch" style="background:#F43F5E"></div>
+          <div class="color-body">
+            <div class="color-hex">#F43F5E</div>
+            <div class="color-name">rose-500</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#FB7185')">
+          <div class="color-swatch" style="background:#FB7185"></div>
+          <div class="color-body">
+            <div class="color-hex">#FB7185</div>
+            <div class="color-name">rose-400</div>
+          </div>
+        </div>
+        <div class="color-card border-gradient" onclick="copyText('#34D399')">
+          <div class="color-swatch" style="background:#34D399"></div>
+          <div class="color-body">
+            <div class="color-hex">#34D399</div>
+            <div class="color-name">emerald-400 · Status</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       02 — TIPOGRAFIA
+  ══════════════════════════════════════ -->
+  <section class="section" id="typography">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="type" style="width:12px;height:12px"></i> 02 —
+          Tipografia</span>
+        <h2 class="section-title">Hierarquia e escala tipográfica</h2>
+        <p class="section-desc">Uso exclusivo da família <strong>Inter</strong> nos pesos 400, 500 e 600, priorizando
+          legibilidade moderna e tracking negativo para um ar refinado de fintech.</p>
+      </div>
+
+      <div class="type-specimen border-gradient">
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Display / H1</strong>
+            <span>72px · tracking -0.05em</span>
+            <span>font-medium (500)</span>
+          </div>
+          <div
+            style="font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:500;letter-spacing:-0.05em;line-height:1.1;color:#fff">
+            Transform your financial future today
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Section / H2</strong>
+            <span>48px · tracking -0.025em</span>
+            <span>font-medium (500)</span>
+          </div>
+          <div style="font-size:clamp(1.5rem,2.5vw,2.25rem);font-weight:500;letter-spacing:-0.025em;color:#fff">
+            Powerful features that scale with you
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Subtítulo / Lead</strong>
+            <span>18px · text-slate-300</span>
+            <span>font-normal (400)</span>
+          </div>
+          <div style="font-size:1.125rem;color:var(--text-muted);line-height:1.6">
+            Experience seamless banking with unified card management, instant notifications, and intelligent automation.
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Body / Padrão</strong>
+            <span>14px · text-slate-100</span>
+            <span>font-normal (400)</span>
+          </div>
+          <div style="font-size:0.875rem;color:var(--text);line-height:1.6">
+            Build wealth with zero hidden charges and premium financial tools designed for modern life. Available on
+            iOS, Android and Web.
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Badges / Meta</strong>
+            <span>12px · text-slate-300</span>
+            <span>font-medium (500)</span>
+          </div>
+          <div style="font-size:0.75rem;font-weight:500;color:var(--text-muted)">
+            INTRODUCING: ADVANCED REWARDS AND INTELLIGENT SPENDING TOOLS
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       03 — ESPAÇAMENTO
+  ══════════════════════════════════════ -->
+  <section class="section" id="spacing">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="ruler" style="width:12px;height:12px"></i> 03 —
+          Espaçamento</span>
+        <h2 class="section-title">Escala de espaçamento (Base 4px)</h2>
+        <p class="section-desc">Alinhada rigidamente à escala do Tailwind CSS: de micro-espaçamentos em badges até
+          respiros generosos entre seções.</p>
+      </div>
+
+      <div class="spacing-table border-gradient">
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-1</strong>
+          <span>4px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:4px"></div>
+          </div>
+          <span style="color:var(--text-dim)">gap-1 (ícones)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-2</strong>
+          <span>8px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:8px"></div>
+          </div>
+          <span style="color:var(--text-dim)">gap-2 (badges/botões)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-3</strong>
+          <span>12px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:12px"></div>
+          </div>
+          <span style="color:var(--text-dim)">gap-3 (inputs)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-4</strong>
+          <span>16px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:16px"></div>
+          </div>
+          <span style="color:var(--text-dim)">p-4 (padding interno)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-6</strong>
+          <span>24px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:24px"></div>
+          </div>
+          <span style="color:var(--text-dim)">p-6 (cards padrão)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-8</strong>
+          <span>32px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:32px"></div>
+          </div>
+          <span style="color:var(--text-dim)">gap-8 (colunas)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-12</strong>
+          <span>48px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:48px"></div>
+          </div>
+          <span style="color:var(--text-dim)">gap-12 (hero)</span>
+        </div>
+        <div class="space-row">
+          <strong style="color:#FF8DC7">space-24</strong>
+          <span>96px</span>
+          <div class="space-bar-bg">
+            <div class="space-bar-fill" style="width:96px"></div>
+          </div>
+          <span style="color:var(--text-dim)">py-24 (respiro seções)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       04 — BORDER RADIUS
+  ══════════════════════════════════════ -->
+  <section class="section" id="radius">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="square" style="width:12px;height:12px"></i> 04 —
+          Border Radius</span>
+        <h2 class="section-title">Curvatura e suavidade</h2>
+        <p class="section-desc">O Maze Bank aposta fortemente em cantos arredondados: <code>rounded-full</code> é a
+          classe mais frequente na página (71 ocorrências).</p>
+      </div>
+
+      <div class="radius-grid">
+        <div class="radius-card border-gradient">
+          <div class="radius-preview" style="border-radius:0.5rem"></div>
+          <strong style="color:#fff">8px · lg</strong>
+          <div style="font-size:0.6875rem;color:var(--text-dim);margin-top:2px">Ícones e tags</div>
+        </div>
+        <div class="radius-card border-gradient">
+          <div class="radius-preview" style="border-radius:0.75rem"></div>
+          <strong style="color:#fff">12px · xl</strong>
+          <div style="font-size:0.6875rem;color:var(--text-dim);margin-top:2px">Botões e inputs</div>
+        </div>
+        <div class="radius-card border-gradient">
+          <div class="radius-preview" style="border-radius:1rem"></div>
+          <strong style="color:#fff">16px · 2xl</strong>
+          <div style="font-size:0.6875rem;color:var(--text-dim);margin-top:2px">Cards médios</div>
+        </div>
+        <div class="radius-card border-gradient">
+          <div class="radius-preview" style="border-radius:1.5rem"></div>
+          <strong style="color:#fff">24px · 3xl</strong>
+          <div style="font-size:0.6875rem;color:var(--text-dim);margin-top:2px">Painéis do hero</div>
+        </div>
+        <div class="radius-card border-gradient">
+          <div class="radius-preview" style="border-radius:9999px"></div>
+          <strong style="color:#fff">9999px · full</strong>
+          <div style="font-size:0.6875rem;color:var(--text-dim);margin-top:2px">Badges e pílulas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       05 — SOMBRAS & EFEITOS
+  ══════════════════════════════════════ -->
+  <section class="section" id="shadows">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="sparkles" style="width:12px;height:12px"></i> 05 —
+          Sombras & Efeitos</span>
+        <h2 class="section-title">Glow e profundidade</h2>
+        <p class="section-desc">Efeitos atmosféricos de luz difusa em tom rosa e a classe exclusiva
+          <code>border-gradient</code> que dá a sensação de vidro lapidado.</p>
+      </div>
+
+      <div class="shadow-grid">
+        <div class="shadow-card border-gradient">
+          <div class="shadow-sample border-gradient" style="background:var(--surface)">
+            border-gradient
+          </div>
+          <strong style="color:#fff;display:block;margin-bottom:0.25rem">Assinatura: Borda de Vidro</strong>
+          <p style="font-size:0.75rem;color:var(--text-dim);line-height:1.5">
+            Borda criada com pseudo-elemento <code>::before</code>, máscara CSS e gradiente linear de branco 0% a 20%.
+          </p>
+        </div>
+
+        <div class="shadow-card border-gradient">
+          <div class="shadow-sample"
+            style="background:var(--gradient-brand);box-shadow:0 10px 15px -3px rgba(255,105,180,0.35);color:#fff">
+            shadow-pink-500/35
+          </div>
+          <strong style="color:#fff;display:block;margin-bottom:0.25rem">Glow Primário de CTA</strong>
+          <p style="font-size:0.75rem;color:var(--text-dim);line-height:1.5">
+            Sombra colorida em rosa #FF69B4 com opacidade calculada para fazer o botão principal saltar do fundo escuro.
+          </p>
+        </div>
+
+        <div class="shadow-card border-gradient">
+          <div class="shadow-sample" style="box-shadow:0 25px 50px -12px rgba(255,20,147,0.25)">
+            shadow-2xl rose/25
+          </div>
+          <strong style="color:#fff;display:block;margin-bottom:0.25rem">Profundidade de Painel</strong>
+          <p style="font-size:0.75rem;color:var(--text-dim);line-height:1.5">
+            Usada em cartões virtuais e mockups para criar elevação tridimensional sobre a página.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       06 — COMPONENTES
+  ══════════════════════════════════════ -->
+  <section class="section" id="components">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="box" style="width:12px;height:12px"></i> 06 —
+          Componentes</span>
+        <h2 class="section-title">Biblioteca de componentes reais</h2>
+        <p class="section-desc">Todos os blocos interativos montados com o tema Rosa #FF69B4 no estilo do Maze Bank.</p>
+      </div>
+
+      <!-- Botões -->
+      <div class="component-group border-gradient">
+        <div class="component-label">Botões / Ações</div>
+        <div class="component-row">
+          <button class="btn btn-primary border-gradient">
+            <span>Start free trial</span>
+            <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+          </button>
+          <button class="btn btn-white border-gradient">
+            <span>Create account</span>
+            <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+          </button>
+          <button class="btn btn-glass border-gradient">
+            <i data-lucide="play" style="width:14px;height:14px"></i>
+            <span>App Store</span>
+          </button>
+          <button class="btn btn-glass border-gradient">Talk to sales</button>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="component-group border-gradient">
+        <div class="component-label">Badges / Status Pills</div>
+        <div class="component-row">
+          <div class="badge border-gradient">
+            <span class="badge-dot"></span>
+            <span>Introducing: Advanced rewards</span>
+          </div>
+          <div class="badge border-gradient" style="color:#FF8DC7">
+            <span style="width:6px;height:6px;border-radius:9999px;background:#FF69B4"></span>
+            <span>Starter Plan</span>
+          </div>
+          <div class="badge border-gradient" style="color:#FF1493">
+            <span style="width:6px;height:6px;border-radius:9999px;background:#FF1493"></span>
+            <span>Pro Business</span>
+          </div>
+          <div class="badge" style="background:rgba(16,185,129,0.15);color:#6EE7B7">
+            <span class="badge-dot-emerald"></span>
+            <span>Status: Todos os sistemas operacionais</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input de Captura -->
+      <div class="component-group border-gradient">
+        <div class="component-label">Captura de Lead (Hero Input)</div>
+        <div class="component-row" style="max-width:32rem">
+          <div style="flex:1;position:relative">
+            <input class="input-field border-gradient" type="email" placeholder="Enter your work email">
+            <i data-lucide="mail"
+              style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-dim);pointer-events:none"></i>
+          </div>
+          <button class="btn btn-primary border-gradient">
+            <span>Start trial</span>
+            <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TOKENS COMPLETOS
+  ══════════════════════════════════════ -->
+  <section class="section" id="tokens">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag border-gradient"><i data-lucide="code" style="width:12px;height:12px"></i> Tokens
+          Completos</span>
+        <h2 class="section-title">Variáveis CSS prontas para colar</h2>
+        <p class="section-desc">Basta copiar o bloco abaixo e incluir no topo do seu arquivo global de estilos.</p>
+      </div>
+
+      <div class="code-box border-gradient" id="css-tokens">
+        <div class="code-top">
+          <span class="code-lang">CSS :root — Maze Bank Design System (Rosa #FF69B4)</span>
+          <button class="copy-btn" onclick="copyBlock('#css-tokens')">Copiar tudo</button>
+        </div>
+        <pre><code>/* ============================================================
+   MAZE BANK — DESIGN SYSTEM TOKENS (ROSA #FF69B4)
+   ============================================================ */
+
+:root {
+  /* ── Fundos & Vidro ─────────────────────────────────────── */
+  --bg-base:             #030712;                   /* gray-950 */
+  --surface-default:     #111827;                   /* gray-900 */
+  --surface-panel:       rgba(17, 24, 39, 0.80);    /* painel com blur */
+  --glass-default:       rgba(255, 255, 255, 0.05); /* cards / inputs */
+  --glass-hover:         rgba(255, 255, 255, 0.10); /* estados de hover */
+
+  /* ── Tipografia & Cores de Texto ────────────────────────── */
+  --text-primary:        #F1F5F9;                   /* slate-100 */
+  --text-muted:          #CBD5E1;                   /* slate-300 */
+  --text-dim:            #94A3B8;                   /* slate-400 */
+  --font-family:         'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Identidade da Marca (Rosa #FF69B4 / Gradiente) ─────── */
+  --brand-pink:          #FF69B4;                   /* Cor Principal */
+  --brand-pink-light:    #FF8DC7;                   /* Destaque suave */
+  --brand-pink-deep:     #FF1493;                   /* Rosa profundo */
+  --brand-rose:          #F43F5E;                   /* Rose-500 */
+  --brand-gradient:      linear-gradient(to right, #FF69B4, #FF1493, #F43F5E);
+
+  /* ── Status Semântico ───────────────────────────────────── */
+  --status-emerald:      #34D399;                   /* emerald-400 */
+  --status-emerald-bg:   rgba(16, 185, 129, 0.15);  /* badge positivo */
+
+  /* ── Bordas & Sombras ───────────────────────────────────── */
+  --border-subtle:       rgba(255, 255, 255, 0.10); /* ring-white/10 */
+  --glow-primary:        0 10px 15px -3px rgba(255, 105, 180, 0.35);
+  --shadow-panel-deep:   0 25px 50px -12px rgba(255, 20, 147, 0.25);
+}
+
+/* ── Assinatura: Borda de Vidro Lapidado ──────────────────── */
+.border-gradient {
+  position: relative;
+}
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background: linear-gradient(225deg,
+    rgba(255, 255, 255, 0.0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.0) 100%);
+  pointer-events: none;
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner (fiel ao index.html) -->
+  <div class="container">
+    <div class="cta-banner border-gradient">
+      <div class="cta-glow"></div>
+      <div style="position:relative;z-index:1;max-width:36rem">
+        <h3 style="font-size:2rem;font-weight:600;letter-spacing:-0.03em;color:#fff;margin-bottom:0.75rem">
+          Pronto para construir sua próxima interface?
+        </h3>
+        <p style="color:var(--text-muted);font-size:1rem;margin-bottom:1.5rem">
+          Use os tokens e componentes acima para manter total fidelidade ao estilo visual do Maze Bank em novas páginas.
+        </p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <a href="index.html" class="btn btn-white border-gradient">
+            <span>Explorar site original</span>
+            <i data-lucide="external-link" style="width:14px;height:14px"></i>
+          </a>
+          <button class="btn btn-glass border-gradient" onclick="copyBlock('#css-tokens')">
+            <span>Copiar tokens</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (fiel ao index.html) -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#" class="brand-logo" style="margin-bottom:1rem">
+          <span class="brand-mark">M</span>
+          <span>Maze<span style="color:#FF8DC7">Bank</span></span>
+        </a>
+        <p style="max-width:20rem;line-height:1.6">
+          Design system oficial extraído da página de referência. Construído para velocidade, consistência e escala.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Tokens</h5>
+        <ul>
+          <li><a href="#colors">Cores & Vidro</a></li>
+          <li><a href="#typography">Tipografia Inter</a></li>
+          <li><a href="#spacing">Escala 4px</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Efeitos</h5>
+        <ul>
+          <li><a href="#shadows">Border-gradient</a></li>
+          <li><a href="#shadows">Glow Rosa</a></li>
+          <li><a href="#radius">Border Radius</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Componentes</h5>
+        <ul>
+          <li><a href="#components">Botões & CTAs</a></li>
+          <li><a href="#components">Status Badges</a></li>
+          <li><a href="#components">Lead Input</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container"
+      style="display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;font-size:0.75rem">
+      <p>© 2026 Maze Bank — Design System Documentation</p>
+      <div style="display:flex;gap:1rem">
+        <a href="index.html" style="color:var(--text-dim);text-decoration:none">Ver site original</a>
+        <a href="#tokens" style="color:var(--text-dim);text-decoration:none">Tokens CSS</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast de Notificação -->
+  <div class="toast" id="toast">
+    <i data-lucide="check" style="width:16px;height:16px;color:#34D399"></i>
+    <span id="toast-msg">Copiado com sucesso!</span>
+  </div>
+
+  <script>
+    // Lucide Icons
+    lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });
+
+    // Toast & Copy
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('// ' + text + ' copiado!');
+      });
+    }
+
+    function copyBlock(selector) {
+      const el = document.querySelector(selector + ' code, ' + selector + ' pre');
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent).then(() => {
+        showToast('✓ Tokens CSS copiados com sucesso!');
+      });
+    }
+
+    // Scrollspy simples para a barra de pílulas
+    const sections = document.querySelectorAll('section[id]');
+    const pills = document.querySelectorAll('.quicknav-pill');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        const top = s.offsetTop - 120;
+        if (window.scrollY >= top) current = s.getAttribute('id');
+      });
+      pills.forEach(p => {
+        p.classList.toggle('active', p.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
+</body>
+
+</html>

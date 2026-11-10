@@ -1,0 +1,4016 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mariana Sabatier — Web Designer & Digital Solutions</title>
+  <meta name="description" content="Experiências digitais personalizadas para profissionais, criadores de conteúdo, empreendedores e marcas. Sites, portfólios, landing pages e vitrines digitais por Mariana Sabatier.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030004;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-hover: rgba(255, 255, 255, 0.10);
+      --surface-card: rgba(17, 24, 39, 0.75);
+      --text: #F1F5F9;
+      --text-muted: #CBD5E1;
+      --text-dim: #A8B4C6;
+      --ring: rgba(255, 255, 255, 0.10);
+      --pink: #FF69B4;
+      --pink-deep: #FF1493;
+      --emerald: #34D399;
+      --gold: #FBBF24;
+      --gradient-brand: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+      --gradient-text: linear-gradient(to right, #FFFFFF 20%, var(--pink) 100%);
+      --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font: var(--font-body);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    @media (max-width: 768px) {
+      html {
+        scroll-padding-top: 65px;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      letter-spacing: -0.025em;
+    }
+
+    /* ─── AURORA BACKGROUND GLOBAL ─────────────────── */
+    .aurora-background-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background-color: #030004;
+      contain: strict;
+    }
+
+    /* 1. Gradientes Radiais Pulsantes */
+    .aurora-pulse-layer {
+      position: absolute;
+      inset: 0;
+      opacity: 0.55;
+      background-image:
+        radial-gradient(ellipse 65% 50% at 20% 25%, rgba(255, 20, 147, 0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 60% at 85% 75%, rgba(112, 0, 61, 0.28) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.16) 0%, transparent 65%);
+      background-size: 100% 100%;
+      animation: auroraPulse 11s ease-in-out infinite alternate;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    @keyframes auroraPulse {
+      0%   { opacity: 0.40; transform: scale(1); }
+      50%  { opacity: 0.65; transform: scale(1.04); }
+      100% { opacity: 0.40; transform: scale(1); }
+    }
+
+    /* 2. Manchas de Luz da Aurora (Pink Neon, Magenta, Rosa, Ameixa) */
+    .aurora-blobs-layer {
+      position: absolute;
+      inset: 0;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.90;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      -webkit-filter: blur(100px);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* Em telas até 768px: reduza a aurora para 2 blobs com blur de no máximo 50px */
+    @media (max-width: 768px) {
+      .aurora-blob {
+        filter: blur(50px);
+        -webkit-filter: blur(50px);
+      }
+      .aurora-blob-3,
+      .aurora-blob-4 {
+        display: none !important;
+      }
+    }
+
+    /* Blob 1: Pink Neon — Superior Esquerdo */
+    .aurora-blob-1 {
+      top: -15%;
+      left: -10%;
+      width: min(65vw, 750px);
+      height: min(65vw, 750px);
+      background: #FF1493;
+      opacity: 0.35;
+      animation: auroraMove1 30s ease-in-out infinite alternate;
+    }
+
+    /* Blob 2: Magenta Vibrante — Inferior Direito */
+    .aurora-blob-2 {
+      bottom: -20%;
+      right: -10%;
+      width: min(70vw, 820px);
+      height: min(70vw, 820px);
+      background: #D946EF;
+      opacity: 0.32;
+      animation: auroraMove2 40s ease-in-out infinite alternate;
+    }
+
+    /* Blob 3: Ameixa Escuro Profundo (Plum) — Centro / Diagonal */
+    .aurora-blob-3 {
+      top: 25%;
+      left: 20%;
+      width: min(55vw, 680px);
+      height: min(55vw, 680px);
+      background: #70003D;
+      opacity: 0.38;
+      animation: auroraMove3 50s ease-in-out infinite alternate;
+    }
+
+    /* Blob 4: Rosa Radiante — Superior Direito */
+    .aurora-blob-4 {
+      top: 8%;
+      right: 18%;
+      width: min(45vw, 540px);
+      height: min(45vw, 540px);
+      background: #FF69B4;
+      opacity: 0.26;
+      animation: auroraMove4 36s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraMove1 {
+      0%   { transform: translate3d(-50px, -20px, 0) scale(1); }
+      50%  { transform: translate3d(50px, 40px, 0) scale(1.2); }
+      100% { transform: translate3d(-40px, 30px, 0) scale(0.95); }
+    }
+
+    @keyframes auroraMove2 {
+      0%   { transform: translate3d(50px, 30px, 0) scale(1); }
+      50%  { transform: translate3d(-50px, -40px, 0) scale(1.25); }
+      100% { transform: translate3d(30px, -20px, 0) scale(0.92); }
+    }
+
+    @keyframes auroraMove3 {
+      0%   { transform: translate3d(20px, -30px, 0) rotate(0deg) scale(1); }
+      50%  { transform: translate3d(-30px, 30px, 0) rotate(90deg) scale(1.15); }
+      100% { transform: translate3d(20px, 20px, 0) rotate(180deg) scale(0.9); }
+    }
+
+    @keyframes auroraMove4 {
+      0%   { transform: translate3d(-20px, 20px, 0) scale(0.95); }
+      50%  { transform: translate3d(40px, -30px, 0) scale(1.15); }
+      100% { transform: translate3d(-20px, -20px, 0) scale(1); }
+    }
+
+    /* 3. Pequenas Estrelas Brancas Cintilantes */
+    .aurora-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .aurora-star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.85);
+      animation: auroraStarTwinkle infinite ease-in-out;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    @keyframes auroraStarTwinkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      50% {
+        opacity: var(--star-max-opacity, 0.7);
+        transform: scale(1.2);
+      }
+    }
+
+    /* 4. Vinheta Suave para Profundidade e Conforto de Leitura */
+    .aurora-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(3, 0, 4, 0.55) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* ─── BORDER-GRADIENT (Vidro Lapidado) ────────── */
+    .border-gradient { position: relative; }
+    .border-gradient::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      background: linear-gradient(225deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 80rem; margin: 0 auto;
+      padding-left: 1.5rem; padding-right: 1.5rem;
+      position: relative; z-index: 10;
+    }
+
+    /* ─── TUBELIGHT NAVBAR FLUTUANTE ─────────────── */
+    .tubelight-nav-wrapper {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      pointer-events: none;
+      width: max-content;
+      max-width: calc(100vw - 24px);
+    }
+
+    .tubelight-nav {
+      pointer-events: auto;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+      background: rgba(17, 24, 39, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75),
+                  0 0 24px -6px rgba(255, 105, 180, 0.25);
+    }
+
+    /* Indicador Luminoso Deslizante (Tubelight Lamp) */
+    .tubelight-lamp {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 0;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.08);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.2s ease;
+      box-shadow: inset 0 0 14px rgba(255, 105, 180, 0.15);
+    }
+
+    /* Linha do Tubo Luminoso no topo da aba ativa */
+    .tubelight-lamp-light {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 3px;
+      background: var(--pink);
+      border-top-left-radius: 9999px;
+      border-top-right-radius: 9999px;
+      box-shadow: 0 0 10px 2px var(--pink);
+    }
+
+    /* Iluminação Rosa Suave em 3 Camadas de Blur */
+    .lamp-glow-1 {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 48px;
+      height: 22px;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.35);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+    .lamp-glow-2 {
+      position: absolute;
+      top: -4px;
+      left: 0;
+      width: 32px;
+      height: 20px;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.30);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .lamp-glow-3 {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 16px;
+      height: 14px;
+      border-radius: 9999px;
+      background: rgba(255, 105, 180, 0.50);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    /* Itens da Tubelight Navbar */
+    .tubelight-item {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1.15rem;
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .tubelight-item:hover {
+      color: #fff;
+    }
+
+    .tubelight-item.is-active {
+      color: #fff;
+    }
+
+    .tubelight-item svg.tubelight-icon,
+    .tubelight-item i.tubelight-icon {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.2;
+      flex-shrink: 0;
+      color: inherit;
+      stroke: currentColor;
+      transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .tubelight-item.is-active svg.tubelight-icon,
+    .tubelight-item.is-active i.tubelight-icon {
+      color: var(--pink);
+      stroke: var(--pink);
+      filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.6));
+    }
+
+    .tubelight-item:hover svg.tubelight-icon,
+    .tubelight-item:hover i.tubelight-icon {
+      color: var(--pink);
+      stroke: var(--pink);
+    }
+
+    /* Marca / Logo Compacta no Menu Tubelight */
+    .tubelight-brand {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.65rem 0.35rem 0.55rem;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .tubelight-brand:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .tubelight-brand-img {
+      height: 24px;
+      width: auto;
+      aspect-ratio: 880 / 520;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.45));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .tubelight-brand:hover .tubelight-brand-img {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.75));
+    }
+    .tubelight-brand-name {
+      font-family: var(--font-heading);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .tubelight-brand-divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 0 3px 0 1px;
+      flex-shrink: 0;
+    }
+
+    /* Responsividade da Tubelight Navbar */
+    @media (max-width: 768px) {
+      .tubelight-nav-wrapper {
+        top: 12px;
+      }
+      .tubelight-nav {
+        gap: 2px;
+        padding: 3px 4px;
+      }
+      .tubelight-brand {
+        padding: 0.4rem 0.5rem;
+      }
+      .tubelight-brand-name {
+        display: none; /* Mantém apenas o símbolo no mobile */
+      }
+      .tubelight-brand-img {
+        height: 20px;
+      }
+      .tubelight-brand-divider {
+        display: inline-block;
+        height: 16px;
+        margin: 0 1px;
+      }
+      .tubelight-item {
+        padding: 0.6rem 0.85rem;
+      }
+      .tubelight-item .tubelight-text {
+        display: none; /* Exibe apenas os ícones no mobile */
+      }
+      .tubelight-item svg.tubelight-icon,
+      .tubelight-item i.tubelight-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .tubelight-brand {
+        padding: 0.35rem 0.4rem;
+      }
+      .tubelight-brand-img {
+        height: 18px;
+      }
+      .tubelight-item {
+        padding: 0.55rem 0.65rem;
+      }
+    }
+
+    /* ─── BOTÕES ──────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.92rem; font-weight: 600;
+      letter-spacing: 0.01em; border-radius: 0.85rem; border: none;
+      cursor: pointer; text-decoration: none; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      height: 3.25rem; padding: 0 1.75rem; font-size: 0.94rem; font-weight: 600;
+      background: var(--gradient-brand); color: #fff;
+      box-shadow: 0 12px 24px -6px rgba(255, 105, 180, 0.45);
+      letter-spacing: 0.02em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px -6px rgba(255, 105, 180, 0.60);
+      opacity: 0.96;
+    }
+
+    /* ─── PRIMEIRA DOBRA (ANIMATED HERO) ───────────── */
+    .hero {
+      position: relative;
+      padding: 7.5rem 0 5.5rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+    .animated-hero-container {
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* Eyebrow Pill */
+    .eyebrow-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border-radius: 9999px; padding: 0.45rem 1.15rem;
+      font-size: 0.8rem; font-weight: 500; line-height: 1.4;
+      font-family: var(--font-body); letter-spacing: 0.01em;
+      color: var(--text-muted); background: var(--surface);
+      margin-bottom: 1.6rem; max-width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .eyebrow-badge strong { color: #fff; font-weight: 600; }
+    .badge-dot-pink {
+      width: 0.65rem; height: 0.65rem; border-radius: 9999px;
+      background: var(--pink); box-shadow: 0 0 10px var(--pink);
+      flex-shrink: 0; animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Título Principal com Palavras Animadas */
+    .animated-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.35rem, 5.2vw, 4.3rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      text-align: center;
+    }
+    .animated-hero-fixed {
+      display: block;
+      color: #ffffff;
+    }
+    .animated-hero-rotator-frame {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 1.28em;
+      line-height: 1.28em;
+      overflow: hidden;
+      vertical-align: middle;
+      min-width: 9.5ch; /* Garante estabilidade para "Magnética", sem pulos */
+      padding: 0 0.3em;
+    }
+    .animated-hero-rotator {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-word {
+      position: absolute;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--pink);
+      filter: drop-shadow(0 0 24px rgba(255, 105, 180, 0.45));
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.45s ease;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+    .hero-word.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .hero-word.is-exiting {
+      opacity: 0;
+      transform: translateY(-100%);
+      filter: blur(4px);
+    }
+
+    .text-highlight {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    /* Texto de Apoio */
+    .animated-hero-desc {
+      font-family: var(--font-body);
+      font-size: clamp(1.02rem, 1.8vw, 1.16rem);
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.72;
+      letter-spacing: -0.01em;
+      max-width: 680px;
+      margin: 1.6rem auto 2.5rem;
+      text-align: center;
+    }
+
+    /* Ações / Botões */
+    .animated-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.15rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .animated-hero-btn-primary {
+      background: var(--gradient-brand);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(255, 105, 180, 0.45);
+      border: none;
+      font-weight: 600;
+      padding: 0.85rem 1.85rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      transition: transform 0.22s ease, box-shadow 0.25s ease;
+    }
+    .animated-hero-btn-primary:hover {
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.7);
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+    .animated-hero-btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 105, 180, 0.35);
+      color: #ffffff;
+      font-weight: 500;
+      padding: 0.85rem 1.85rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.22s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .animated-hero-btn-secondary:hover {
+      background: rgba(255, 105, 180, 0.12);
+      border-color: rgba(255, 105, 180, 0.6);
+      color: #ffffff;
+      box-shadow: 0 4px 18px rgba(255, 105, 180, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* ─── ESTILOS GERAIS DE SEÇÃO ─────────────────── */
+    .site-section {
+      position: relative;
+      padding: 6rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+    .text-center { text-align: center; }
+    .section-headline {
+      font-family: var(--font-heading);
+      font-size: clamp(1.95rem, 3.4vw, 2.7rem);
+      font-weight: 700;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .section-subheadline {
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.68;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── CARD DECK CAROUSEL (Serviços) ───────────── */
+    .cd-root {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      outline: none;
+      padding: 0.5rem 0 1rem;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    .cd-deck {
+      position: relative;
+      width: min(92vw, 440px);
+      height: 520px;
+      touch-action: pan-y;
+      margin-top: 1.5rem;
+      perspective: 1000px;
+    }
+
+    .cd-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: rgba(17, 24, 39, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.85), 0 0 30px -10px rgba(255, 105, 180, 0.16);
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.4s ease,
+                  filter 0.4s ease,
+                  box-shadow 0.3s ease;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+      padding: 2.25rem 2rem;
+      box-sizing: border-box;
+    }
+
+    .cd-card[data-top="1"] {
+      cursor: grab;
+    }
+    .cd-card[data-top="1"]:active,
+    .cd-card[data-drag="1"] {
+      cursor: grabbing;
+      transition: none !important;
+    }
+    .cd-card[data-fly="1"] {
+      transition: transform 0.45s cubic-bezier(0.3, 0.5, 0.3, 1), opacity 0.45s ease !important;
+    }
+    .cd-card[data-snap="1"] {
+      transition: none !important;
+    }
+
+    /* Conteúdo interno do Card */
+    .cd-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .cd-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 105, 180, 0.12);
+      border: 1px solid rgba(255, 105, 180, 0.28);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 16px rgba(255, 105, 180, 0.2);
+    }
+    .cd-card-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: monospace;
+      color: var(--pink);
+      background: rgba(255, 105, 180, 0.1);
+      border: 1px solid rgba(255, 105, 180, 0.2);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+    .cd-card-niche {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--pink);
+      margin-bottom: 0.5rem;
+    }
+    .cd-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 0.85rem;
+    }
+    .cd-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.62;
+      margin-bottom: 1.25rem;
+    }
+    .cd-card-bullets {
+      font-family: var(--font-body);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.25rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .cd-card-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .cd-card-bullets li svg,
+    .cd-card-bullets li i {
+      width: 15px;
+      height: 15px;
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+    .cd-card-action {
+      margin-top: auto;
+    }
+    .cd-card-btn {
+      width: 100%;
+      height: 3rem;
+      border-radius: 0.85rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .cd-card-btn:hover {
+      background: var(--gradient-brand);
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Barra de Controles & Metadados */
+    .cd-meta {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.5vw, 24px);
+      width: min(92vw, 440px);
+      margin-top: 0.25rem;
+    }
+    .cd-cap {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cd-title {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      animation: cd-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .cd-sub {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--pink);
+      font-weight: 600;
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+      animation: cd-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s both;
+    }
+    .cd-count {
+      font-size: 0.85rem;
+      font-family: monospace;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+    .cd-count b {
+      color: #fff;
+      font-weight: 700;
+    }
+    .cd-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--surface);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex: none;
+      transition: all 0.2s ease;
+    }
+    .cd-btn:hover {
+      background: var(--gradient-brand);
+      border-color: transparent;
+      transform: scale(1.08);
+      box-shadow: 0 4px 14px rgba(255, 105, 180, 0.4);
+    }
+
+    /* Dica de interação */
+    .cd-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      opacity: 0.75;
+    }
+
+    .cd-sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    @keyframes cd-in {
+      from { transform: translateY(8px); opacity: 0; }
+      to { transform: none; opacity: 1; }
+    }
+
+    /* ─── PORTFÓLIO · ANIMATED 3D CARDS ───────────── */
+    .p3d-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.75rem;
+      perspective: 1500px;
+    }
+    .p3d-item {
+      transform-style: preserve-3d;
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(32px) rotateX(-10deg) scale(0.97);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .p3d-item.is-visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: none;
+    }
+
+    .p3d-card {
+      --rx: 0deg;
+      --ry: 0deg;
+      --mx: 50%;
+      --my: 50%;
+      --lift: 0px;
+      position: relative;
+      height: 440px;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: #0b0f1c;
+      transform-style: preserve-3d;
+      transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(var(--lift));
+      transition: transform 0.22s ease-out, box-shadow 0.35s ease;
+      box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.85);
+      will-change: transform;
+      cursor: pointer;
+    }
+    .p3d-card.is-hovered {
+      --lift: 8px;
+      transition: transform 0.16s ease-out, box-shadow 0.35s ease;
+      box-shadow: 0 28px 55px -18px rgba(0, 0, 0, 0.9), 0 0 35px -8px rgba(255, 105, 180, 0.40);
+    }
+
+    /* Camada 1 — Preview real do site */
+    .p3d-media {
+      position: absolute;
+      inset: 0;
+      transform: translateZ(-10px);
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      background: linear-gradient(135deg, #1a0a14 0%, #2a0f22 50%, #0b0f1c 100%);
+    }
+    .p3d-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 6s ease;
+    }
+    .p3d-card.is-hovered .p3d-media img {
+      transform: translateY(-6%);
+    }
+    .p3d-card.is-hovered .p3d-media { transform: translateZ(-10px) scale(1.03); }
+
+    /* Camada 2 — Gradiente dark + rosa para legibilidade */
+    .p3d-shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(3, 7, 18, 0.05) 0%, rgba(3, 7, 18, 0.35) 38%, rgba(3, 7, 18, 0.92) 68%, rgba(3, 7, 18, 0.98) 100%),
+        linear-gradient(135deg, rgba(255, 105, 180, 0.14) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    /* Camada 3 — Padrões decorativos sutis */
+    .p3d-pattern {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.18;
+      color: #fff;
+      pointer-events: none;
+    }
+
+    /* Camada 4 — Reflexo de luz que acompanha o cursor */
+    .p3d-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 141, 199, 0.22) 0%, rgba(255, 255, 255, 0.06) 25%, transparent 55%);
+      mix-blend-mode: screen;
+    }
+    .p3d-card.is-hovered .p3d-glare { opacity: 1; }
+
+    /* Camada 5 — Borda lapidada */
+    .p3d-edge {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, transparent 30%, transparent 70%, rgba(255, 105, 180, 0.10) 100%);
+    }
+
+    /* Conteúdo — com hit-testing 100% estável */
+    .p3d-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.4rem;
+      color: #fff;
+      pointer-events: auto;
+    }
+    .p3d-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .p3d-badge {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 10px;
+      border-radius: 9999px;
+      background: rgba(3, 7, 18, 0.72);
+      border: 1px solid rgba(255, 105, 180, 0.35);
+      color: var(--pink);
+      backdrop-filter: blur(8px);
+    }
+    .p3d-demo {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 5px 9px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .p3d-body {
+      position: relative;
+      z-index: 10;
+    }
+    .p3d-title {
+      font-family: var(--font-heading);
+      font-size: 1.22rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.28;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+    .p3d-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      letter-spacing: -0.005em;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .p3d-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      height: 3.1rem;
+      padding: 0 1.25rem;
+      border-radius: 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255, 105, 180, 0.20);
+      border: 1px solid rgba(255, 105, 180, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+      z-index: 20;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .p3d-btn:hover,
+    .p3d-btn:focus-visible,
+    .p3d-card.is-hovered .p3d-btn {
+      background: var(--gradient-brand);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #fff;
+      box-shadow: 0 10px 24px -4px rgba(255, 105, 180, 0.65);
+    }
+    .p3d-btn:hover {
+      transform: scale(1.02);
+    }
+    .p3d-btn:active {
+      transform: scale(0.98);
+    }
+    .p3d-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+    .portfolio-note {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 1024px) {
+      .p3d-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .p3d-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .p3d-card { height: 400px; }
+    }
+    @media (hover: none), (prefers-reduced-motion: reduce) {
+      .p3d-card, .p3d-card.is-hovered { transform: none !important; }
+      .p3d-glare { display: none; }
+      .p3d-item { transition: opacity 0.5s ease; transform: none; }
+    }
+
+    /* ─── FILTRO DE CATEGORIAS (Glass Folder Tabs) ─────── */
+    .gfolder-filter-wrapper {
+      margin: 1.75rem auto 2.5rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 15;
+    }
+    .gfolder-filter-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem;
+      background: rgba(15, 20, 32, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 9999px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 100%;
+    }
+    .gfolder-filter-bar::-webkit-scrollbar { display: none; }
+
+    .gfolder-tab {
+      all: unset;
+      box-sizing: border-box;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      height: 38px;
+      padding: 0 1.15rem;
+      border-radius: 9999px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .gfolder-tab:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+    .gfolder-tab:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 2px;
+    }
+
+    /* Ícones de Pasta (fechada em repouso, aberta quando ativa) */
+    .gf-icon-wrapper {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .gf-icon {
+      width: 15px;
+      height: 15px;
+      transition: all 0.25s ease;
+    }
+    .gf-icon-closed {
+      display: block;
+      color: var(--text-dim);
+    }
+    .gf-icon-open {
+      display: none;
+      color: var(--pink);
+    }
+    .gfolder-tab:hover .gf-icon-closed {
+      color: var(--pink);
+    }
+
+    /* Badge contador */
+    .gf-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      transition: all 0.25s ease;
+    }
+
+    /* Estado Ativo: Iluminação Rosa e Pasta Aberta */
+    .gfolder-tab.is-active {
+      color: #ffffff;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(255, 105, 180, 0.22) 0%, rgba(255, 105, 180, 0.08) 100%);
+      border-color: rgba(255, 105, 180, 0.55);
+      box-shadow: 0 0 18px -2px rgba(255, 105, 180, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+    .gfolder-tab.is-active .gf-icon-closed {
+      display: none;
+    }
+    .gfolder-tab.is-active .gf-icon-open {
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.8));
+      transform: scale(1.12);
+    }
+    .gfolder-tab.is-active .gf-badge {
+      background: var(--pink);
+      color: #ffffff;
+      box-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+    }
+
+    /* Centralização elegante do Grid quando filtrado */
+    .p3d-grid.is-single {
+      grid-template-columns: minmax(0, 420px);
+      justify-content: center;
+    }
+    .p3d-grid.is-double {
+      grid-template-columns: repeat(2, minmax(0, 420px));
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .gfolder-filter-wrapper {
+        justify-content: flex-start;
+      }
+      .gfolder-filter-bar {
+        border-radius: 18px;
+        padding: 0.35rem 0.6rem;
+      }
+    }
+
+    /* ─── CARROSSEL DE TESTIMONIALS (Framer-Motion Port) ─ */
+    .testimonial-carousel-root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem 0;
+      user-select: none;
+    }
+
+    .testimonial-stack-container {
+      position: relative;
+      width: min(92vw, 540px);
+      height: 420px;
+      perspective: 1000px;
+      touch-action: pan-y;
+      margin-top: 1rem;
+    }
+
+    .testimonial-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 1.5rem;
+      background: rgba(17, 24, 39, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.85), 0 0 30px -10px rgba(255, 105, 180, 0.16);
+      padding: 2.25rem 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+      will-change: transform, opacity;
+      cursor: grab;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.45s ease,
+                  filter 0.45s ease;
+    }
+
+    .testimonial-card:active,
+    .testimonial-card.is-dragging {
+      cursor: grabbing;
+      transition: none !important;
+    }
+
+    .testimonial-card.is-exiting {
+      transition: transform 0.35s cubic-bezier(0.3, 0.5, 0.3, 1), opacity 0.35s ease !important;
+    }
+
+    .testimonial-nav-arrows {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .testimonial-arrow-btn {
+      pointer-events: auto;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .testimonial-arrow-btn:hover {
+      color: var(--pink);
+      transform: scale(1.2);
+    }
+
+    .testimonial-avatar-wrapper {
+      position: relative;
+      margin-bottom: 0.85rem;
+    }
+
+    .testimonial-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 3px solid var(--pink);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.45);
+    }
+
+    .testimonial-verified-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--pink);
+      border: 2px solid #030712;
+      display: grid;
+      place-items: center;
+      color: #fff;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .testimonial-name {
+      font-family: var(--font-heading);
+      font-size: 1.22rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-role {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.15rem;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+      letter-spacing: -0.005em;
+      font-style: italic;
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .testimonial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+
+    .testimonial-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .testimonial-dot.is-active {
+      width: 24px;
+      background: var(--pink);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+    }
+
+    /* ─── SOBRE MIM & PILARES ──────────────────────── */
+    #sobre .section-headline {
+      font-size: clamp(2rem, 3.4vw, 2.9rem);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .about-text {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+      letter-spacing: -0.005em;
+      margin-bottom: 1.25rem;
+    }
+    .about-text strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .pillar-item {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .pillar-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--pink);
+      font-family: monospace;
+    }
+    .pillar-item strong {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.015em;
+    }
+    .pillar-item span {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    /* ─── PROFILE CARD (Sobre mim) ──────────────────── */
+    .profile-card-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      animation: profileCardFloat 4s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes profileCardFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    .profile-card-glow {
+      position: absolute;
+      inset: -18px;
+      border-radius: 2.2rem;
+      background: radial-gradient(circle at 65% 35%, rgba(255, 105, 180, 0.40) 0%, rgba(255, 105, 180, 0.18) 45%, transparent 72%);
+      filter: blur(34px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.9;
+      transform: translateZ(0);
+      transition: opacity 0.4s ease, filter 0.4s ease;
+    }
+    .profile-card-wrapper:hover .profile-card-glow {
+      opacity: 1;
+      filter: blur(40px);
+    }
+    .profile-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 520px;
+      border-radius: 1.85rem;
+      overflow: hidden;
+      background: #090c14;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.85), 0 0 40px -10px rgba(255, 105, 180, 0.28);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
+      will-change: transform;
+    }
+    .profile-card:hover {
+      transform: translateY(-4px) scale(1.012);
+      border-color: rgba(255, 105, 180, 0.45);
+      box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.9), 0 0 50px -5px rgba(255, 105, 180, 0.45);
+    }
+    .profile-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      filter: none !important;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      z-index: 1;
+    }
+    .profile-card:hover .profile-card-img {
+      transform: scale(1.05);
+    }
+    .profile-card-overlay-base {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(3, 7, 18, 0.08) 0%,
+        rgba(3, 7, 18, 0.02) 25%,
+        rgba(9, 12, 20, 0.48) 55%,
+        rgba(9, 12, 20, 0.92) 80%,
+        rgba(9, 12, 20, 0.98) 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+    .profile-card-overlay-blur {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 250px;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(9, 12, 20, 0.65) 45%,
+        rgba(9, 12, 20, 0.95) 100%
+      );
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      mask-image: linear-gradient(to top, black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 65%, transparent 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .profile-card-status-badge {
+      position: absolute;
+      top: 1.15rem;
+      left: 1.15rem;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+    .profile-card-content {
+      position: relative;
+      z-index: 3;
+      padding: 1.65rem 1.5rem 1.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .profile-card-role {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pink);
+    }
+    .profile-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .profile-card-name {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+    .profile-card-verified {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--pink);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .profile-card:hover .profile-card-verified {
+      transform: scale(1.15) rotate(6deg);
+    }
+    .profile-card-verified svg {
+      width: 12px;
+      height: 12px;
+      stroke: #ffffff;
+      stroke-width: 3;
+    }
+    .profile-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.62;
+      letter-spacing: -0.005em;
+      color: var(--text-muted);
+      margin: 0.35rem 0 0;
+    }
+
+    /* ─── CONTATO & BANNER ────────────────────────── */
+    #contato.site-section {
+      padding: 3.5rem 0 4rem;
+    }
+    .cta-banner {
+      max-width: 860px;
+      margin: 0 auto;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 105, 180, 0.16) 0%, rgba(13, 17, 28, 0.94) 65%, rgba(9, 12, 20, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 1.75rem;
+      padding: 2.4rem 2rem 2.1rem;
+      box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.85), 0 0 35px -8px rgba(255, 105, 180, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cta-banner .eyebrow-badge {
+      margin-bottom: 0.75rem;
+    }
+    .cta-banner .section-headline {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      max-width: 26ch;
+      margin: 0 auto 0.85rem;
+    }
+    .cta-banner .section-subheadline {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      letter-spacing: -0.005em;
+      max-width: 44ch;
+      margin: 0 auto 1.45rem;
+      color: var(--text-muted);
+    }
+    .cta-banner .hero-actions {
+      margin-bottom: 0.65rem;
+    }
+    .cta-banner .hero-actions .btn-primary {
+      height: 3.35rem;
+      padding: 0 2.35rem;
+      font-family: var(--font-body);
+      font-size: 0.94rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border-radius: 9999px;
+      animation: ctaBtnGlow 2.5s ease-in-out infinite;
+      box-shadow: 0 8px 24px -4px rgba(255, 105, 180, 0.45);
+    }
+    .cta-banner .hero-actions .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px -4px rgba(255, 105, 180, 0.75), 0 0 32px 6px rgba(255, 105, 180, 0.55);
+    }
+    @keyframes ctaBtnGlow {
+      0%, 100% {
+        box-shadow: 0 8px 24px -4px rgba(255, 105, 180, 0.40), 0 0 16px -2px rgba(255, 105, 180, 0.25);
+      }
+      50% {
+        box-shadow: 0 12px 32px -4px rgba(255, 105, 180, 0.70), 0 0 28px 4px rgba(255, 105, 180, 0.50);
+      }
+    }
+    .cta-microcopy {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.01em;
+    }
+    .contact-channels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .channel-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.22s ease;
+    }
+    .channel-pill:hover {
+      background: rgba(255, 105, 180, 0.12);
+      border-color: rgba(255, 105, 180, 0.45);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(255, 105, 180, 0.2);
+    }
+    .channel-pill svg,
+    .channel-pill i {
+      width: 15px;
+      height: 15px;
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+
+    /* ─── HOVER EFFECTS — MS STUDIO CARDS ─────────────────── */
+    /* Inspiração no componente Features Section with Hover Effects:
+       - Iluminação sutil e gradientes suaves em rosa (--pink) no hover
+       - Iluminação suave e lapidada nas bordas
+       - Barra indicadora lateral iluminada com glow
+       - Deslocamento horizontal elegante nos títulos
+       - Destaque luminoso nos ícones
+       - Total preservação de links, cliques e glassmorphism */
+
+    @media (hover: hover) and (pointer: fine) {
+      /* 1. SEÇÃO SERVIÇOS: .cd-card */
+      .cd-card {
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    opacity 0.4s ease,
+                    filter 0.4s ease,
+                    box-shadow 0.3s ease,
+                    border-color 0.3s ease;
+      }
+      .cd-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(to top, rgba(255, 105, 180, 0.12) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .cd-card[data-top="1"]:hover {
+        border-color: rgba(255, 105, 180, 0.45);
+        box-shadow: 0 28px 55px -15px rgba(0, 0, 0, 0.9), 0 0 35px -6px rgba(255, 105, 180, 0.35);
+      }
+      .cd-card[data-top="1"]:hover::after {
+        opacity: 1;
+      }
+      .cd-card-title {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, text-shadow 0.25s ease;
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+      }
+      .cd-card[data-top="1"]:hover .cd-card-title {
+        transform: translateX(6px);
+        color: #ffffff;
+        text-shadow: 0 0 14px rgba(255, 105, 180, 0.4);
+      }
+      .cd-card-icon {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+        position: relative;
+        z-index: 2;
+      }
+      .cd-card[data-top="1"]:hover .cd-card-icon {
+        transform: scale(1.08);
+        background: rgba(255, 105, 180, 0.20);
+        border-color: rgba(255, 105, 180, 0.6);
+        box-shadow: 0 0 18px rgba(255, 105, 180, 0.45);
+        color: var(--pink);
+      }
+      .cd-card[data-top="1"]:hover .cd-card-icon svg,
+      .cd-card[data-top="1"]:hover .cd-card-icon i {
+        color: var(--pink);
+        filter: drop-shadow(0 0 6px var(--pink));
+      }
+      .cd-card[data-top="1"]:hover .cd-card-num {
+        transform: translateX(4px);
+        border-color: rgba(255, 105, 180, 0.5);
+        background: rgba(255, 105, 180, 0.18);
+        box-shadow: 0 0 10px rgba(255, 105, 180, 0.35);
+        transition: all 0.25s ease;
+      }
+
+      /* 2. SEÇÃO PORTFÓLIO: .p3d-card */
+      .p3d-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(to top, rgba(255, 105, 180, 0.14) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        pointer-events: none;
+        z-index: 8;
+      }
+      .p3d-card:hover::after,
+      .p3d-card.is-hovered::after {
+        opacity: 1;
+      }
+      .p3d-card:hover,
+      .p3d-card.is-hovered {
+        border: 1px solid rgba(255, 105, 180, 0.45);
+        box-shadow: 0 28px 55px -18px rgba(0, 0, 0, 0.9), 0 0 35px -6px rgba(255, 105, 180, 0.40);
+      }
+      .p3d-title {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, text-shadow 0.25s ease;
+      }
+      .p3d-card:hover .p3d-title,
+      .p3d-card.is-hovered .p3d-title {
+        transform: translateX(6px);
+        color: #ffffff;
+        text-shadow: 0 0 14px rgba(255, 105, 180, 0.45);
+      }
+      .p3d-badge {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+      .p3d-card:hover .p3d-badge,
+      .p3d-card.is-hovered .p3d-badge {
+        transform: translateX(4px);
+        background: rgba(255, 105, 180, 0.20);
+        border-color: rgba(255, 105, 180, 0.6);
+        color: #ffffff;
+        box-shadow: 0 0 12px rgba(255, 105, 180, 0.4);
+      }
+      .p3d-btn {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, background 0.28s ease;
+      }
+      .p3d-card:hover .p3d-btn,
+      .p3d-card.is-hovered .p3d-btn {
+        transform: scale(1.08);
+        background: var(--gradient-brand);
+        box-shadow: 0 0 16px rgba(255, 105, 180, 0.6);
+      }
+
+      /* 3. SEÇÃO SOBRE MIM: .pillar-item & .profile-card */
+      .pillar-item {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                    background 0.25s ease,
+                    border-color 0.25s ease,
+                    box-shadow 0.25s ease;
+      }
+      .pillar-item::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 105, 180, 0.12) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .pillar-item::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 18px;
+        border-radius: 0 3px 3px 0;
+        background: rgba(255, 255, 255, 0.15);
+        transition: height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                    background 0.25s ease,
+                    box-shadow 0.25s ease;
+        z-index: 2;
+      }
+      .pillar-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 105, 180, 0.45);
+        box-shadow: 0 10px 25px -6px rgba(0, 0, 0, 0.5), 0 0 25px -4px rgba(255, 105, 180, 0.28);
+        transform: translateY(-2px);
+      }
+      .pillar-item:hover::before {
+        opacity: 1;
+      }
+      .pillar-item:hover::after {
+        height: 32px;
+        background: var(--pink);
+        box-shadow: 0 0 12px var(--pink), 0 0 4px var(--pink);
+      }
+      .pillar-item strong {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, text-shadow 0.25s ease;
+      }
+      .pillar-item:hover strong {
+        transform: translateX(6px);
+        color: #ffffff;
+        text-shadow: 0 0 12px rgba(255, 105, 180, 0.35);
+      }
+      .pillar-num {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, text-shadow 0.25s ease;
+      }
+      .pillar-item:hover .pillar-num {
+        transform: translateX(6px) scale(1.06);
+        color: var(--pink);
+        text-shadow: 0 0 10px var(--pink);
+      }
+      .pillar-item span {
+        position: relative;
+        z-index: 2;
+        transition: color 0.25s ease;
+      }
+      .pillar-item:hover span {
+        color: var(--text-muted);
+      }
+
+      .profile-card-name {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        display: inline-block;
+      }
+      .profile-card:hover .profile-card-name {
+        transform: translateX(4px);
+      }
+      .profile-card-status-badge {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+      .profile-card:hover .profile-card-status-badge {
+        transform: translateX(3px);
+        border-color: rgba(255, 105, 180, 0.55);
+        box-shadow: 0 0 12px rgba(255, 105, 180, 0.4);
+      }
+
+      /* 4. SEÇÃO DEPOIMENTOS: .testimonial-card */
+      .testimonial-card {
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    opacity 0.45s ease,
+                    filter 0.45s ease,
+                    border-color 0.3s ease,
+                    box-shadow 0.3s ease;
+      }
+      .testimonial-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(to bottom, rgba(255, 105, 180, 0.08) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .testimonial-card:hover {
+        border-color: rgba(255, 105, 180, 0.45);
+        box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.9), 0 0 35px -6px rgba(255, 105, 180, 0.35);
+      }
+      .testimonial-card:hover::before {
+        opacity: 1;
+      }
+      .testimonial-name {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, text-shadow 0.25s ease;
+      }
+      .testimonial-card:hover .testimonial-name {
+        transform: translateX(5px);
+        color: #ffffff;
+        text-shadow: 0 0 12px rgba(255, 105, 180, 0.35);
+      }
+      .testimonial-avatar {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+        position: relative;
+        z-index: 2;
+      }
+      .testimonial-card:hover .testimonial-avatar {
+        transform: scale(1.06);
+        border-color: rgba(255, 105, 180, 0.6);
+        box-shadow: 0 0 18px rgba(255, 105, 180, 0.45);
+      }
+      .testimonial-stars {
+        position: relative;
+        z-index: 2;
+        transition: transform 0.28s ease, filter 0.28s ease;
+      }
+      .testimonial-card:hover .testimonial-stars {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.5));
+      }
+
+      /* 5. SEÇÃO CONTATO: .cta-banner & .channel-pill */
+      .cta-banner {
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      }
+      .cta-banner:hover {
+        border-color: rgba(255, 105, 180, 0.45);
+        box-shadow: 0 30px 65px -15px rgba(0, 0, 0, 0.95), 0 0 45px -5px rgba(255, 105, 180, 0.35);
+        transform: translateY(-2px);
+      }
+      .cta-banner:hover .eyebrow-badge {
+        border-color: rgba(255, 105, 180, 0.45);
+        background: rgba(255, 105, 180, 0.12);
+        box-shadow: 0 0 12px rgba(255, 105, 180, 0.25);
+      }
+      .channel-pill {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                    background 0.25s ease,
+                    border-color 0.25s ease,
+                    box-shadow 0.25s ease;
+      }
+      .channel-pill:hover {
+        background: rgba(255, 105, 180, 0.14);
+        border-color: rgba(255, 105, 180, 0.55);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px -2px rgba(255, 105, 180, 0.35);
+      }
+      .channel-pill span {
+        display: inline-block;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .channel-pill:hover span {
+        transform: translateX(4px);
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(255, 105, 180, 0.35);
+      }
+      .channel-pill svg,
+      .channel-pill i {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, filter 0.25s ease;
+      }
+      .channel-pill:hover svg,
+      .channel-pill:hover i {
+        transform: scale(1.15);
+        color: var(--pink);
+        filter: drop-shadow(0 0 8px var(--pink));
+      }
+
+    }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2.5rem 0;
+      background: rgba(3, 0, 4, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      z-index: 10;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .footer-logo-full {
+      height: 52px;
+      width: auto;
+      aspect-ratio: 1199 / 1312;
+      object-fit: contain;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 14px rgba(255, 105, 180, 0.35));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .footer-logo-full:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 22px rgba(255, 105, 180, 0.65));
+    }
+    .footer-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .footer-brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .footer-brand-sub {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    /* ─── RESPONSIVIDADE ──────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero { padding: 6.5rem 0 4.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .profile-card-wrapper { max-width: 440px; margin: 0 auto; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 5rem 0 3.5rem; min-height: auto; }
+      .animated-hero-title { font-size: clamp(1.85rem, 8vw, 2.5rem); gap: 0.2rem; }
+      .animated-hero-rotator-frame { min-width: 8ch; }
+      .animated-hero-desc { font-size: 0.95rem; margin: 1.25rem auto 2rem; padding: 0 0.5rem; }
+      .animated-hero-actions { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; gap: 0.85rem; }
+      .animated-hero-actions .btn,
+      .animated-hero-btn-primary,
+      .animated-hero-btn-secondary { width: 100%; justify-content: center; text-align: center; }
+      .site-section { padding: 4rem 0; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .profile-card-wrapper { max-width: 360px; margin: 0 auto; }
+      .profile-card { height: 460px; border-radius: 1.5rem; }
+      .profile-card-img { object-position: center 18%; }
+      .profile-card-name { font-size: 1.42rem; }
+      .profile-card-desc { font-size: 0.84rem; line-height: 1.48; }
+      .profile-card-content { padding: 1.4rem 1.25rem 1.4rem; }
+      #contato.site-section { padding: 2.75rem 0 3.25rem; }
+      .cta-banner { padding: 2rem 1.15rem 1.75rem; border-radius: 1.25rem; }
+      .cta-banner .section-headline { font-size: clamp(1.8rem, 6.5vw, 2.3rem); }
+      .cta-banner .section-subheadline { font-size: 0.86rem; }
+      .cta-banner .hero-actions .btn { width: 100%; max-width: 320px; }
+      .contact-channels { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; gap: 0.5rem; }
+      .channel-pill { justify-content: center; padding: 0.55rem 1rem; }
+      .footer-inner { flex-direction: column; text-align: center; justify-content: center; gap: 1.25rem; }
+      .footer-brand { flex-direction: column; text-align: center; gap: 0.65rem; }
+      .footer-logo-full { height: 46px; }
+      .cd-deck { width: min(92vw, 380px); height: 500px; }
+      .cd-card { padding: 1.75rem 1.4rem; border-radius: 1.25rem; }
+      .cd-card-title { font-size: 1.2rem; }
+      .cd-card-desc { font-size: 0.85rem; margin-bottom: 1rem; }
+      .cd-card-bullets { font-size: 0.85rem; gap: 0.5rem; }
+      .cd-meta { width: min(92vw, 380px); }
+      .testimonial-stack-container { width: min(92vw, 420px); height: 440px; }
+      .testimonial-card { padding: 1.75rem 1.4rem 1.5rem; border-radius: 1.25rem; }
+      .testimonial-quote { font-size: 0.86rem; line-height: 1.58; }
+      .testimonial-avatar { width: 68px; height: 68px; }
+    }
+
+    /* ─── BLUR FADE COMPONENT (Framer-Motion Reference Port) ─── */
+    .blur-fade {
+      --bf-y: 14px;
+      --bf-blur: 6px;
+      --bf-duration: 0.52s;
+      --bf-delay: 0s;
+      opacity: 0;
+      filter: blur(var(--bf-blur));
+      transform: translateY(var(--bf-y));
+      transition:
+        opacity var(--bf-duration) cubic-bezier(0.16, 1, 0.3, 1) var(--bf-delay),
+        filter var(--bf-duration) cubic-bezier(0.16, 1, 0.3, 1) var(--bf-delay),
+        transform var(--bf-duration) cubic-bezier(0.16, 1, 0.3, 1) var(--bf-delay);
+      will-change: opacity, filter, transform;
+    }
+
+    .blur-fade.is-inview {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+
+    .blur-fade.is-done {
+      filter: none !important;
+      transform: none !important;
+      will-change: auto !important;
+    }
+
+    /* ─── BLUR IN COMPONENT (Framer-Motion Reference Port) ─── */
+    .blur-in {
+      --bi-blur: 10px;
+      --bi-duration: 1s;
+      --bi-delay: 0s;
+      opacity: 0;
+      filter: blur(var(--bi-blur));
+      transition:
+        opacity var(--bi-duration) cubic-bezier(0.16, 1, 0.3, 1) var(--bi-delay),
+        filter var(--bi-duration) cubic-bezier(0.16, 1, 0.3, 1) var(--bi-delay);
+      will-change: opacity, filter;
+    }
+
+    .blur-in.is-inview {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    .blur-in.is-done {
+      filter: none !important;
+      will-change: auto !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blur-fade,
+      .blur-in {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .profile-card-wrapper {
+        animation: none !important;
+        transform: none !important;
+      }
+      .profile-card,
+      .profile-card:hover,
+      .profile-card-img,
+      .profile-card:hover .profile-card-img,
+      .profile-card-verified,
+      .profile-card:hover .profile-card-verified {
+        transition: none !important;
+        transform: none !important;
+      }
+      .aurora-pulse-layer,
+      .aurora-blob,
+      .aurora-star {
+        animation: none !important;
+        transition: none !important;
+      }
+      .aurora-star {
+        opacity: 0.3 !important;
+      }
+      .cd-card-title,
+      .cd-card-icon,
+      .p3d-title,
+      .p3d-badge,
+      .p3d-btn,
+      .pillar-item,
+      .pillar-item strong,
+      .pillar-item .pillar-num,
+      .pillar-item::after,
+      .profile-card-name,
+      .profile-card-status-badge,
+      .testimonial-name,
+      .testimonial-avatar,
+      .testimonial-stars,
+      .cta-banner,
+      .cta-banner .hero-actions .btn-primary,
+      .channel-pill,
+      .channel-pill span,
+      .channel-pill svg,
+      .channel-pill i {
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AURORA BACKGROUND GLOBAL -->
+  <div class="aurora-background-wrapper" role="img" aria-label="Fundo animado Aurora com estrelas" aria-hidden="true">
+    <div class="aurora-pulse-layer"></div>
+    <div class="aurora-blobs-layer">
+      <div class="aurora-blob aurora-blob-1"></div>
+      <div class="aurora-blob aurora-blob-2"></div>
+      <div class="aurora-blob aurora-blob-3"></div>
+      <div class="aurora-blob aurora-blob-4"></div>
+    </div>
+    <div class="aurora-stars" id="aurora-stars"></div>
+    <div class="aurora-vignette"></div>
+  </div>
+
+  <!-- TUBELIGHT NAVBAR FLUTUANTE (Fixed no Topo, Centralizada) -->
+  <nav class="tubelight-nav-wrapper" aria-label="Navegação principal">
+    <div class="tubelight-nav border-gradient" id="tubelight-nav">
+      
+      <!-- Indicador Luminoso Animado (Tubelight Lamp) -->
+      <div class="tubelight-lamp" id="tubelight-lamp" aria-hidden="true">
+        <div class="tubelight-lamp-light">
+          <div class="lamp-glow-1"></div>
+          <div class="lamp-glow-2"></div>
+          <div class="lamp-glow-3"></div>
+        </div>
+      </div>
+
+      <!-- Marca / Logo Compacta MS Studio -->
+      <a href="#inicio" class="tubelight-brand" aria-label="MS Studio - Início">
+        <img src="assets/logo-ms-studio-compact.svg" alt="MS Studio" class="tubelight-brand-img">
+        <span class="tubelight-brand-name">MS Studio</span>
+      </a>
+      <span class="tubelight-brand-divider" aria-hidden="true"></span>
+
+      <!-- 1. Início — ícone Home — #inicio -->
+      <a href="#inicio" class="tubelight-item is-active" data-section="inicio">
+        <i data-lucide="home" class="tubelight-icon"></i>
+        <span class="tubelight-text">Início</span>
+      </a>
+
+      <!-- 2. Serviços — ícone Layers — #servicos -->
+      <a href="#servicos" class="tubelight-item" data-section="servicos">
+        <i data-lucide="layers" class="tubelight-icon"></i>
+        <span class="tubelight-text">Serviços</span>
+      </a>
+
+      <!-- 3. Portfólio — ícone Briefcase — #portfolio -->
+      <a href="#portfolio" class="tubelight-item" data-section="portfolio">
+        <i data-lucide="briefcase" class="tubelight-icon"></i>
+        <span class="tubelight-text">Portfólio</span>
+      </a>
+
+      <!-- 4. Sobre mim — ícone User — #sobre -->
+      <a href="#sobre" class="tubelight-item" data-section="sobre">
+        <i data-lucide="user" class="tubelight-icon"></i>
+        <span class="tubelight-text">Sobre mim</span>
+      </a>
+
+      <!-- 5. Contato — ícone MessageCircle — #contato -->
+      <a href="#contato" class="tubelight-item" data-section="contato">
+        <i data-lucide="message-circle" class="tubelight-icon"></i>
+        <span class="tubelight-text">Contato</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- PRIMEIRA DOBRA (HERO SECTION) -->
+  <main>
+    <!-- PRIMEIRA DOBRA (ANIMATED HERO COMPONENT) -->
+    <section class="hero animated-hero-section" id="inicio">
+      <div class="container animated-hero-container">
+        
+        <!-- Eyebrow Badge com Glow Neon -->
+        <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+          <span class="badge-dot-pink"></span>
+          <span>MS Studio · Web Design &amp; Digital Solutions</span>
+        </div>
+
+        <!-- Título Principal com Palavras Animadas -->
+        <div class="animated-hero-heading-wrapper blur-fade" data-bf-delay="0.12">
+          <h1 class="animated-hero-title">
+            <span class="animated-hero-fixed">Sua presença digital merece ser</span>
+            <span class="animated-hero-rotator-frame" aria-label="Palavras em destaque: Memorável, Profissional, Autêntica, Única">
+              <span class="animated-hero-rotator" id="hero-rotator">
+                <span class="hero-word is-active" data-index="0">Memorável</span>
+                <span class="hero-word" data-index="1">Profissional</span>
+                <span class="hero-word" data-index="2">Autêntica</span>
+                <span class="hero-word" data-index="3">Única</span>
+              </span>
+            </span>
+          </h1>
+        </div>
+
+        <!-- Texto de Apoio -->
+        <p class="animated-hero-desc blur-fade" data-bf-delay="0.20">
+          Quando alguém procurar por você na internet, o que vai encontrar? A primeira impressão acontece em segundos, e o seu site precisa estar à altura do seu trabalho. Eu crio sites, portfólios e landing pages sob medida para profissionais, criadores e pequenos negócios, para que o seu trabalho convença antes mesmo da primeira conversa.
+        </p>
+
+        <!-- Botões de Ação -->
+        <div class="animated-hero-actions blur-fade" data-bf-delay="0.28">
+          <a href="#contato" class="btn btn-primary border-gradient animated-hero-btn-primary">
+            <span>Quero meu site</span>
+            <i data-lucide="arrow-up-right" style="width:18px;height:18px;"></i>
+          </a>
+
+          <a href="#portfolio" class="btn btn-outline border-gradient animated-hero-btn-secondary">
+            <span>Ver projetos</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO: SERVIÇOS (#servicos) ─────────────── -->
+    <section class="site-section" id="servicos">
+      <div class="container">
+        
+        <div class="section-header text-center">
+          <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+            <span class="badge-dot-pink"></span>
+            <span>Variedade & Escopo de Atuação</span>
+          </div>
+          <h2 class="section-headline blur-fade" data-bf-delay="0.12">
+            Soluções Digitais <span class="text-highlight">Sob Medida</span>
+          </h2>
+          <p class="section-subheadline blur-fade" data-bf-delay="0.20">
+            Projetos estratégicos pensados para o momento, o público e a ambição de cada negócio — sem receitas prontas ou layouts descartáveis.
+          </p>
+        </div>
+
+        <!-- Card Deck Carousel (Serviços em Deck Interativo) -->
+        <div class="cd-root blur-fade" data-bf-delay="0.25" id="services-deck" role="region" aria-roledescription="carousel" aria-label="Carrossel de Serviços" tabindex="0">
+          
+          <!-- Pilha de Cards (Card Deck) -->
+          <div class="cd-deck" id="cd-deck">
+            
+            <!-- Card 1: Sites Institucionais -->
+            <div class="cd-card border-gradient" 
+                 data-title="Sites Institucionais & Multipáginas" 
+                 data-sub="Clínicas, Escritórios & Consultorias">
+              <div class="cd-card-header">
+                <div class="cd-card-icon">
+                  <i data-lucide="globe" style="width:24px;height:24px;color:var(--pink)"></i>
+                </div>
+                <span class="cd-card-num">01 / 05</span>
+              </div>
+              <div class="cd-card-niche">Clínicas, Escritórios & Consultorias</div>
+              <h3 class="cd-card-title">Sites Institucionais & Multipáginas</h3>
+              <p class="cd-card-desc">
+                Apresentação completa de história, corpo profissional, diferenciais e canais de contato. Design editorial e sofisticado, com SEO e indexação de alta performance no Google.
+              </p>
+              <ul class="cd-card-bullets">
+                <li><i data-lucide="check"></i> Arquitetura completa, responsiva e expansível</li>
+                <li><i data-lucide="check"></i> Tipografia refinada e hierarquia visual clara</li>
+                <li><i data-lucide="check"></i> Otimização técnica de SEO para o Google</li>
+              </ul>
+              <div class="cd-card-action">
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%20Mariana!%20Gostaria%20de%20conversar%20sobre%20um%20Site%20Institucional." target="_blank" rel="noopener" class="cd-card-btn">
+                  <span>Conversar sobre este projeto</span>
+                  <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 2: Landing Pages VIP -->
+            <div class="cd-card border-gradient" 
+                 data-title="Landing Pages de Alto Posicionamento" 
+                 data-sub="Médicos, Dentistas & Especialistas">
+              <div class="cd-card-header">
+                <div class="cd-card-icon">
+                  <i data-lucide="stethoscope" style="width:24px;height:24px;color:var(--pink)"></i>
+                </div>
+                <span class="cd-card-num">02 / 05</span>
+              </div>
+              <div class="cd-card-niche">Médicos, Dentistas & Especialistas</div>
+              <h3 class="cd-card-title">Landing Pages de Alto Posicionamento</h3>
+              <p class="cd-card-desc">
+                Estruturas de alto padrão alinhadas às diretrizes éticas (CFM, CFO, CFP). Foco na captação de pacientes particulares através de acolhimento humanizado e agendamento direto.
+              </p>
+              <ul class="cd-card-bullets">
+                <li><i data-lucide="check"></i> Sobriedade, ética e acolhimento visual</li>
+                <li><i data-lucide="check"></i> Foco exclusivo no paciente particular VIP</li>
+                <li><i data-lucide="check"></i> Integração direta e sem atrito ao WhatsApp</li>
+              </ul>
+              <div class="cd-card-action">
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%20Mariana!%20Gostaria%20de%20conversar%20sobre%20uma%20Landing%20Page." target="_blank" rel="noopener" class="cd-card-btn">
+                  <span>Conversar sobre este projeto</span>
+                  <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 3: Portfólios & Mídia Kits -->
+            <div class="cd-card border-gradient" 
+                 data-title="Portfólios Magnéticos & Mídia Kits" 
+                 data-sub="UGC Creators, Videomakers & Criadores">
+              <div class="cd-card-header">
+                <div class="cd-card-icon">
+                  <i data-lucide="video" style="width:24px;height:24px;color:var(--pink)"></i>
+                </div>
+                <span class="cd-card-num">03 / 05</span>
+              </div>
+              <div class="cd-card-niche">UGC Creators, Videomakers & Criadores</div>
+              <h3 class="cd-card-title">Portfólios Magnéticos & Mídia Kits</h3>
+              <p class="cd-card-desc">
+                Vitrine dinâmica para exibição de trabalhos e vídeos verticais (Reels/TikTok) com reprodução leve e instantânea. Mídia kit comercial integrado com métricas e pacotes.
+              </p>
+              <ul class="cd-card-bullets">
+                <li><i data-lucide="check"></i> Galeria interativa para vídeos verticais Reels</li>
+                <li><i data-lucide="check"></i> Mídia Kit integrado com métricas e audiência</li>
+                <li><i data-lucide="check"></i> Fechamento facilitado de parcerias com marcas</li>
+              </ul>
+              <div class="cd-card-action">
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%20Mariana!%20Gostaria%20de%20um%20Portf%C3%B3lio%20ou%20M%C3%ADdia%20Kit." target="_blank" rel="noopener" class="cd-card-btn">
+                  <span>Conversar sobre este projeto</span>
+                  <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 4: Vitrines Digitais & Catálogos -->
+            <div class="cd-card border-gradient" 
+                 data-title="Vitrines Digitais & Catálogos" 
+                 data-sub="E-commerces, Marcas Autorais & Afiliados">
+              <div class="cd-card-header">
+                <div class="cd-card-icon">
+                  <i data-lucide="shopping-bag" style="width:24px;height:24px;color:var(--pink)"></i>
+                </div>
+                <span class="cd-card-num">04 / 05</span>
+              </div>
+              <div class="cd-card-niche">E-commerces, Marcas Autorais & Afiliados</div>
+              <h3 class="cd-card-title">Vitrines Digitais & Catálogos</h3>
+              <p class="cd-card-desc">
+                Experiência de navegação e compra sem atrito, organização inteligente de coleções e links de recomendação com velocidade extrema para mobile.
+              </p>
+              <ul class="cd-card-bullets">
+                <li><i data-lucide="check"></i> Experiência sem atrito e 100% mobile-first</li>
+                <li><i data-lucide="check"></i> Organização visual intuitiva por coleções</li>
+                <li><i data-lucide="check"></i> Carregamento ultrarrápido em menos de 2s</li>
+              </ul>
+              <div class="cd-card-action">
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%20Mariana!%20Gostaria%20de%20uma%20Vitrine%20Digital." target="_blank" rel="noopener" class="cd-card-btn">
+                  <span>Conversar sobre este projeto</span>
+                  <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 5: Soluções Digitais Sob Medida (Bespoke) -->
+            <div class="cd-card border-gradient" 
+                 data-title="Soluções Digitais Sob Medida (Bespoke)" 
+                 data-sub="Lançamentos, Eventos & Bio Links VIP">
+              <div class="cd-card-header">
+                <div class="cd-card-icon">
+                  <i data-lucide="sparkles" style="width:24px;height:24px;color:var(--pink)"></i>
+                </div>
+                <span class="cd-card-num">05 / 05</span>
+              </div>
+              <div class="cd-card-niche">Lançamentos, Eventos & Bio Links VIP</div>
+              <h3 class="cd-card-title">Soluções Digitais Sob Medida</h3>
+              <p class="cd-card-desc">
+                Projetos 100% exclusivos desenvolvidos para necessidades especiais: páginas de eventos, lançamentos de infoprodutos, bio links personalizados de alta sofisticação e redesigns completos.
+              </p>
+              <ul class="cd-card-bullets">
+                <li><i data-lucide="check"></i> Direção criativa e arte 100% autoral</li>
+                <li><i data-lucide="check"></i> Animações interativas de alto impacto visual</li>
+                <li><i data-lucide="check"></i> Entrega chave-na-mão com suporte dedicado</li>
+              </ul>
+              <div class="cd-card-action">
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%20Mariana!%20Gostaria%20de%20um%20Projeto%20Bespoke." target="_blank" rel="noopener" class="cd-card-btn">
+                  <span>Conversar sobre este projeto</span>
+                  <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Barra de Navegação & Metadados -->
+          <div class="cd-meta">
+            <button type="button" class="cd-btn" id="cd-prev-btn" aria-label="Serviço anterior">
+              <i data-lucide="chevron-left" style="width:18px;height:18px"></i>
+            </button>
+            
+            <div class="cd-cap" id="cd-cap" aria-hidden="true">
+              <span class="cd-title" id="cd-title">Sites Institucionais & Multipáginas</span>
+              <span class="cd-sub" id="cd-sub">Clínicas, Escritórios & Consultorias</span>
+            </div>
+
+            <span class="cd-count" aria-hidden="true">
+              <b id="cd-current">01</b> / <span id="cd-total">05</span>
+            </span>
+
+            <button type="button" class="cd-btn" id="cd-next-btn" aria-label="Próximo serviço">
+              <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
+            </button>
+          </div>
+
+          <!-- Dica Interativa -->
+          <div class="cd-hint">
+            <i data-lucide="move-horizontal" style="width:14px;height:14px"></i>
+            <span>Arraste ou jogue o card em qualquer direção</span>
+          </div>
+
+          <div class="cd-sr" id="cd-sr" aria-live="polite">Card 1 de 5</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO: PORTFÓLIO (#portfolio) · Animated 3D Cards ─── -->
+    <!-- Os projetos são editáveis na lista PORTFOLIO_PROJECTS (script "2.8" no final da página). -->
+    <section class="site-section" id="portfolio">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+            <span class="badge-dot-pink"></span>
+            <span>Experiências Criadas</span>
+          </div>
+          <h2 class="section-headline blur-fade" data-bf-delay="0.12">
+            Projetos <span class="text-highlight">Desenvolvidos</span>
+          </h2>
+          <p class="section-subheadline blur-fade" data-bf-delay="0.20">
+            Sites, catálogos, portfólios e vitrines digitais publicados e navegáveis. Clique em qualquer projeto para explorá-lo ao vivo.
+          </p>
+        </div>
+
+        <!-- Filtro de Categorias · Glass Folder Cards -->
+        <div class="gfolder-filter-wrapper blur-fade" data-bf-delay="0.22" role="region" aria-label="Filtro de projetos por categoria">
+          <div class="gfolder-filter-bar" id="gfolder-filter-bar" role="tablist" aria-label="Categorias do portfólio">
+            <!-- Gerado e controlado dinamicamente via script 2.8 -->
+          </div>
+        </div>
+
+        <div class="p3d-grid" id="p3d-grid" aria-live="polite"></div>
+
+        <p class="portfolio-note blur-fade" data-bf-delay="0.25">
+          Projetos marcados como <strong style="color:var(--text-muted)">demonstrativos</strong> foram criados para apresentar soluções e estilos de trabalho.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO: DEPOIMENTOS / TESTIMONIAL (#depoimentos) ───── -->
+    <section class="site-section" id="depoimentos">
+      <div class="container">
+        
+        <div class="section-header text-center">
+          <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+            <span class="badge-dot-pink"></span>
+            <span>Depoimento Real & Reconhecimento</span>
+          </div>
+          <h2 class="section-headline blur-fade" data-bf-delay="0.12">
+            O Que Meus Clientes <span class="text-highlight">Dizem do Resultado</span>
+          </h2>
+          <p class="section-subheadline blur-fade" data-bf-delay="0.20">
+            A verdadeira medida do sucesso de um projeto é o carinho, a satisfação e o reconhecimento de quem confiou na minha visão criativa.
+          </p>
+        </div>
+
+        <!-- Carrossel de Testimonials (Framer-Motion Card Stack Port) -->
+        <div class="testimonial-carousel-root blur-fade" data-bf-delay="0.25" id="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="Depoimentos de clientes">
+          
+          <div class="testimonial-stack-container" id="testimonial-stack">
+            <!-- Cards montados dinamicamente via script com persistência e efeitos -->
+          </div>
+
+          <!-- Indicadores de Pontos (Dots) -->
+          <div class="testimonial-dots" id="testimonial-dots"></div>
+
+          <!-- Dica Interativa -->
+          <div class="cd-hint" style="margin-top:1.25rem;">
+            <i data-lucide="move-horizontal" style="width:14px;height:14px"></i>
+            <span>Arraste o card ou clique nas setas para navegar</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <section class="site-section" id="sobre">
+      <div class="container">
+        
+        <div class="about-grid">
+          
+          <div class="about-content">
+            <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+              <span class="badge-dot-pink"></span>
+              <span>Quem está por trás do MS STUDIO</span>
+            </div>
+            <h2 class="section-headline blur-in" data-bi-duration="1" data-bi-delay="0.10">
+              Prazer, eu sou a Mariana! Crio sites com a <span class="text-highlight">sua identidade</span>, não com cara de template.
+            </h2>
+            <p class="about-text blur-fade" data-bf-delay="0.18">
+              Sou web designer e crio sites, portfólios e vitrines digitais sob medida para profissionais, criadores de conteúdo e marcas. Cada projeto é feito do zero para mostrar o seu trabalho do jeito que ele merece.
+            </p>
+            <p class="about-text blur-fade" data-bf-delay="0.24">
+              Começamos com uma conversa para entender o seu negócio e os seus objetivos. Depois, cuido de todo o processo, do design à publicação, e você recebe um site bonito, funcional e otimizado, pronto para divulgar.
+            </p>
+
+            <div class="pillars-grid">
+              <div class="pillar-item border-gradient blur-fade" data-bf-delay="0.10">
+                <div class="pillar-num">01</div>
+                <strong>Conversa inicial</strong>
+                <span>Entendo o seu negócio, o seu público e o que o site precisa alcançar.</span>
+              </div>
+              <div class="pillar-item border-gradient blur-fade" data-bf-delay="0.18">
+                <div class="pillar-num">02</div>
+                <strong>Design personalizado</strong>
+                <span>Visual criado especialmente para o seu projeto e a sua marca.</span>
+              </div>
+              <div class="pillar-item border-gradient blur-fade" data-bf-delay="0.26">
+                <div class="pillar-num">03</div>
+                <strong>Otimizado para o celular</strong>
+                <span>Abre bem e funciona em qualquer tela.</span>
+              </div>
+              <div class="pillar-item border-gradient blur-fade" data-bf-delay="0.34">
+                <div class="pillar-num">04</div>
+                <strong>Entrega completa</strong>
+                <span>Site publicado, com domínio configurado e suporte após a entrega.</span>
+              </div>
+            </div>
+
+            <div class="about-action blur-fade" data-bf-delay="0.40" style="margin-top: 2rem;">
+              <a href="https://wa.me/5561981448755?text=Ol%C3%A1%20Mariana!%20Vamos%20criar%20meu%20projeto." target="_blank" rel="noopener noreferrer" class="btn btn-primary border-gradient">
+                <i data-lucide="message-circle" style="width:18px;height:18px"></i>
+                <span>Vamos conversar no WhatsApp?</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Coluna da Direita: Profile Card Interativo -->
+          <div class="about-card-wrapper blur-fade" data-bf-delay="0.22">
+            <div class="profile-card-wrapper">
+              
+              <!-- Iluminação Rosa/Magenta Sutil ao Redor do Card -->
+              <div class="profile-card-glow" aria-hidden="true"></div>
+
+              <!-- Profile Card com Foto Full Cover & Zoom Suave -->
+              <div class="profile-card border-gradient" role="region" aria-label="Card de Perfil de Mariana Sabatier">
+                
+                <!-- Foto Oficial Mariana Sabatier -->
+                <img src="assets/mariana.png" 
+                     alt="Mariana Sabatier — Web Designer &amp; Digital Solutions" 
+                     class="profile-card-img" 
+                     loading="lazy">
+
+                <!-- Gradientes Suaves Sobrepostos para Contraste & Leitura -->
+                <div class="profile-card-overlay-base" aria-hidden="true"></div>
+                <div class="profile-card-overlay-blur" aria-hidden="true"></div>
+
+                <!-- Badge de Status Flutuante Superior -->
+                <div class="profile-card-status-badge">
+                  <span class="badge-dot-pink"></span>
+                  <span>Disponível para Projetos</span>
+                </div>
+
+                <!-- Conteúdo do Profile Card -->
+                <div class="profile-card-content">
+                  <span class="profile-card-role">Web Designer &amp; Digital Solutions</span>
+
+                  <div class="profile-card-header">
+                    <h3 class="profile-card-name">Mariana Sabatier</h3>
+                    <div class="profile-card-verified" title="Perfil Verificado" aria-label="Perfil Verificado">
+                      <i data-lucide="check" style="width:12px;height:12px;stroke-width:3;"></i>
+                    </div>
+                  </div>
+
+                  <p class="profile-card-desc">
+                    Sites e portfólios sob medida para profissionais, criadores e marcas.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO: CONTATO (#contato) ───────────────── -->
+    <section class="site-section" id="contato">
+      <div class="container">
+        
+        <div class="cta-banner border-gradient text-center">
+          <div class="eyebrow-badge border-gradient blur-fade" data-bf-delay="0.05">
+            <span class="badge-dot-pink"></span>
+            <span>Seu site começa aqui</span>
+          </div>
+          
+          <h2 class="section-headline blur-fade" data-bf-delay="0.12">
+            Seu trabalho merece um site <span class="text-highlight">que ninguém esquece</span>.
+          </h2>
+          
+          <p class="section-subheadline blur-fade" data-bf-delay="0.20">
+            Conte-me o seu trabalho e o que imagina para o seu projeto. Eu respondo pelo WhatsApp e mostro como o seu site pode ficar.
+          </p>
+
+          <div class="hero-actions blur-fade" data-bf-delay="0.28" style="justify-content:center;">
+            <a href="https://wa.me/5561981448755?text=Ol%C3%A1%20Mariana!%20Vamos%20criar%20meu%20projeto." target="_blank" rel="noopener noreferrer" class="btn btn-primary border-gradient">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <span>Quero começar meu site</span>
+            </a>
+          </div>
+
+          <p class="cta-microcopy blur-fade" data-bf-delay="0.30">
+            Conversa inicial sem compromisso.
+          </p>
+
+          <div class="contact-channels">
+            <a href="mailto:contato@marianasabatier.com" class="channel-pill blur-fade" data-bf-delay="0.34" aria-label="E-mail contato@marianasabatier.com">
+              <i data-lucide="mail"></i>
+              <span>contato@marianasabatier.com</span>
+            </a>
+            <a href="https://instagram.com/marisabatier.co" target="_blank" rel="noopener noreferrer" class="channel-pill blur-fade" data-bf-delay="0.40" aria-label="Instagram @marisabatier.co">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+              <span>@marisabatier.co</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé do Site -->
+  <footer class="site-footer">
+    <div class="container footer-inner blur-fade" data-bf-delay="0.10">
+      <div class="footer-brand">
+        <img src="assets/logo-ms-studio.svg" alt="MS Studio — Mariana Sabatier" class="footer-logo-full">
+        <div class="footer-brand-text">
+          <span class="footer-brand-title">MS Studio</span>
+          <span class="footer-brand-sub">Mariana Sabatier — Web Designer &amp; Digital Solutions</span>
+        </div>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 MS Studio · Mariana Sabatier. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Inicialização dos Ícones Lucide
+    function initIcons() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons({
+          attrs: {
+            'stroke-width': 2
+          }
+        });
+      }
+    }
+
+    // 1.5 Animated Hero Word Rotator Controller (Framer-Motion Reference Port)
+    (function initHeroRotator() {
+      const rotator = document.getElementById('hero-rotator');
+      if (!rotator) return;
+      const words = Array.from(rotator.querySelectorAll('.hero-word'));
+      if (words.length <= 1) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      let currentIndex = 0;
+      let timer = null;
+
+      function rotate() {
+        const currentWord = words[currentIndex];
+        const nextIndex = (currentIndex + 1) % words.length;
+        const nextWord = words[nextIndex];
+
+        // Palavra atual sai subindo para cima
+        currentWord.classList.remove('is-active');
+        currentWord.classList.add('is-exiting');
+
+        // Próxima palavra sobe de baixo para o centro
+        nextWord.classList.remove('is-exiting');
+        nextWord.classList.add('is-active');
+
+        // Reseta classe de saída após conclusão da transição suave (550ms)
+        setTimeout(() => {
+          currentWord.classList.remove('is-exiting');
+        }, 550);
+
+        currentIndex = nextIndex;
+      }
+
+      function startTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(rotate, 2000);
+      }
+
+      function stopTimer() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopTimer();
+        } else {
+          startTimer();
+        }
+      });
+
+      startTimer();
+    })();
+
+    // 2. Tubelight Navbar Controller
+    (function initTubelightNavbar() {
+      const nav = document.getElementById('tubelight-nav');
+      const lamp = document.getElementById('tubelight-lamp');
+      const items = Array.from(document.querySelectorAll('.tubelight-item'));
+      const sectionIds = ['inicio', 'servicos', 'portfolio', 'sobre', 'contato'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+      let isManualScroll = false;
+      let manualScrollTimer = null;
+
+      // Atualiza a posição e dimensão do Tubelight Lamp
+      function updateLamp(activeItem, animate = true) {
+        if (!nav || !lamp || !activeItem) return;
+
+        const navRect = nav.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+
+        const x = itemRect.left - navRect.left;
+        const width = itemRect.width;
+
+        if (!animate) {
+          lamp.style.transition = 'none';
+        } else {
+          lamp.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease';
+        }
+
+        lamp.style.transform = `translateX(${x}px)`;
+        lamp.style.width = `${width}px`;
+        lamp.style.opacity = '1';
+      }
+
+      function setActiveTab(activeItem, animate = true) {
+        if (!activeItem) return;
+        items.forEach(el => el.classList.remove('is-active'));
+        activeItem.classList.add('is-active');
+        updateLamp(activeItem, animate);
+      }
+
+      // Navegação por clique nos links
+      items.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = item.getAttribute('href');
+          const targetSec = document.querySelector(targetId);
+
+          setActiveTab(item, true);
+
+          if (targetSec) {
+            isManualScroll = true;
+            clearTimeout(manualScrollTimer);
+            targetSec.scrollIntoView({ behavior: 'smooth' });
+
+            manualScrollTimer = setTimeout(() => {
+              isManualScroll = false;
+            }, 850);
+          }
+        });
+      });
+
+      // Detecção automática de seção via IntersectionObserver
+      if ('IntersectionObserver' in window && sections.length > 0) {
+        const observerOptions = {
+          root: null,
+          rootMargin: '-20% 0px -50% 0px',
+          threshold: [0, 0.2, 0.5]
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          if (isManualScroll) return;
+
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const activeSectionId = entry.target.id;
+              const matchingItem = document.querySelector(`.tubelight-item[data-section="${activeSectionId}"]`);
+              if (matchingItem && !matchingItem.classList.contains('is-active')) {
+                setActiveTab(matchingItem, true);
+              }
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+      }
+
+      // Topo absoluto da página: se o usuário rolar ao início, ativa 'inicio'
+      window.addEventListener('scroll', () => {
+        if (isManualScroll) return;
+        if (window.scrollY < 120) {
+          const homeItem = document.querySelector('.tubelight-item[data-section="inicio"]');
+          if (homeItem && !homeItem.classList.contains('is-active')) {
+            setActiveTab(homeItem, true);
+          }
+        }
+      }, { passive: true });
+
+      // Recalcula imediatamente em caso de redimensionamento da janela
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          const currentActive = document.querySelector('.tubelight-item.is-active') || items[0];
+          updateLamp(currentActive, false);
+        }, 50);
+      });
+
+      // Inicialização
+      window.addEventListener('DOMContentLoaded', () => {
+        initIcons();
+        const initial = document.querySelector('.tubelight-item.is-active') || items[0];
+        setTimeout(() => {
+          updateLamp(initial, false);
+        }, 60);
+      });
+
+      // Garantia de execução
+      setTimeout(() => {
+        initIcons();
+        const initial = document.querySelector('.tubelight-item.is-active') || items[0];
+        updateLamp(initial, false);
+      }, 100);
+    })();
+
+    // 2.5 Card Deck Carousel Controller (Serviços)
+    (function initCardDeckCarousel() {
+      const root = document.getElementById('services-deck');
+      const deck = document.getElementById('cd-deck');
+      if (!root || !deck) return;
+
+      const cards = Array.from(deck.querySelectorAll('.cd-card'));
+      const n = cards.length;
+      if (n === 0) return;
+
+      const prevBtn = document.getElementById('cd-prev-btn');
+      const nextBtn = document.getElementById('cd-next-btn');
+      const titleEl = document.getElementById('cd-title');
+      const subEl = document.getElementById('cd-sub');
+      const countEl = document.getElementById('cd-current');
+      const totalEl = document.getElementById('cd-total');
+      const srEl = document.getElementById('cd-sr');
+
+      if (totalEl) totalEl.textContent = pad2(n);
+
+      let top = 0;
+      let busy = false;
+      let lastTouch = performance.now();
+      const scatter = 7; // Ângulo máximo de inclinação em graus
+      const autoplayDelay = 4600;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function wrap(i, n) {
+        return n ? ((i % n) + n) % n : 0;
+      }
+
+      function tiltFor(i, max) {
+        const u = (((i + 1) * 2654435761) >>> 0) / 4294967296;
+        return (u * 2 - 1) * max;
+      }
+
+      function deckPose(depth, tilt, reduceMotion) {
+        const d = Math.min(depth, 3);
+        return {
+          y: d ? -d * 18 : 0,
+          scale: 1 - d * 0.055,
+          rot: depth === 0 || reduceMotion ? 0 : tilt,
+          opacity: depth > 3 ? 0 : 1,
+          shade: 1 - d * 0.12,
+        };
+      }
+
+      function isThrow(dx, vx, w) {
+        return Math.abs(dx) > w * 0.28 || (Math.abs(vx) > 0.55 && Math.abs(dx) > 24);
+      }
+
+      function pad2(num) {
+        return num < 10 ? '0' + num : String(num);
+      }
+
+      function updateDeck(over = null) {
+        cards.forEach((card, i) => {
+          const depth = wrap(i - top, n);
+          const p = deckPose(depth, tiltFor(i, scatter), reduce);
+          const isTop = depth === 0;
+          const o = over && over.i === i ? over : null;
+
+          card.setAttribute('data-top', isTop ? '1' : '0');
+          card.setAttribute('data-drag', o && o.mode === 'drag' ? '1' : '0');
+          card.setAttribute('data-fly', o && o.mode === 'fly' ? '1' : '0');
+          card.setAttribute('data-snap', o && o.mode === 'snap' ? '1' : '0');
+
+          if (o) {
+            card.style.transform = `translate(${o.x}px, ${o.y}px) rotate(${o.r}deg)`;
+            card.style.zIndex = n + 2;
+            card.style.opacity = '1';
+            card.style.filter = 'none';
+          } else {
+            card.style.transform = `translateY(${p.y}px) scale(${p.scale}) rotate(${p.rot.toFixed(2)}deg)`;
+            card.style.zIndex = n - depth;
+            card.style.opacity = String(p.opacity);
+            card.style.filter = isTop ? 'none' : `brightness(${p.shade})`;
+          }
+
+          card.setAttribute('aria-hidden', isTop ? 'false' : 'true');
+        });
+
+        // Atualização dos metadados e contadores
+        const activeCard = cards[top];
+        if (activeCard) {
+          const title = activeCard.getAttribute('data-title') || '';
+          const sub = activeCard.getAttribute('data-sub') || '';
+
+          if (titleEl) {
+            titleEl.textContent = title;
+            titleEl.style.animation = 'none';
+            void titleEl.offsetWidth;
+            titleEl.style.animation = 'cd-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both';
+          }
+          if (subEl) {
+            subEl.textContent = sub;
+            subEl.style.animation = 'none';
+            void subEl.offsetWidth;
+            subEl.style.animation = 'cd-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s both';
+          }
+          if (countEl) {
+            countEl.textContent = pad2(top + 1);
+          }
+          if (srEl) {
+            srEl.textContent = `Card ${top + 1} de ${n}: ${title}`;
+          }
+        }
+      }
+
+      // Lança o card do topo em qualquer direção
+      function throwTop(dirX, fromX = 0, fromY = 0, dirY = 0) {
+        const w = deck.offsetWidth || 400;
+        if (busy || n < 2) return;
+        busy = true;
+        const i = top;
+        const sx = dirX >= 0 ? 1 : -1;
+
+        updateDeck({
+          i,
+          x: fromX + sx * w * 1.3,
+          y: fromY + dirY * 0.4 - 40,
+          r: sx * 18,
+          mode: 'fly'
+        });
+
+        setTimeout(() => {
+          top = wrap(top + 1, n);
+          updateDeck(null);
+          busy = false;
+        }, reduce ? 200 : 430);
+      }
+
+      // Puxa o card anterior de volta por cima da pilha (vindo da esquerda)
+      function pullBack() {
+        const w = deck.offsetWidth || 400;
+        if (busy || n < 2) return;
+        busy = true;
+        const i = wrap(top - 1, n);
+
+        updateDeck({ i, x: -w * 1.3, y: -40, r: -18, mode: 'snap' });
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            updateDeck({ i, x: 0, y: 0, r: 0, mode: 'fly' });
+            setTimeout(() => {
+              top = i;
+              updateDeck(null);
+              busy = false;
+            }, reduce ? 200 : 450);
+          });
+        });
+      }
+
+      // Interações de arrastar / jogar via Pointer Events
+      let drag = null;
+
+      function onPointerDown(e) {
+        const card = e.currentTarget;
+        if (card.getAttribute('data-top') !== '1') return;
+        if (busy || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        if (e.target.closest('a, button')) return;
+
+        lastTouch = performance.now();
+        card.setPointerCapture(e.pointerId);
+        drag = {
+          card,
+          id: e.pointerId,
+          x: e.clientX,
+          y: e.clientY,
+          lx: e.clientX,
+          lt: e.timeStamp,
+          vx: 0
+        };
+      }
+
+      function onPointerMove(e) {
+        if (!drag || drag.id !== e.pointerId) return;
+        const dt = Math.max(1, e.timeStamp - drag.lt);
+        drag.vx = 0.8 * ((e.clientX - drag.lx) / dt) + 0.2 * drag.vx;
+        drag.lx = e.clientX;
+        drag.lt = e.timeStamp;
+
+        const dx = e.clientX - drag.x;
+        const dy = e.clientY - drag.y;
+
+        updateDeck({
+          i: top,
+          x: dx,
+          y: dy,
+          r: reduce ? 0 : dx * 0.05,
+          mode: 'drag'
+        });
+      }
+
+      function onPointerUp(e) {
+        if (!drag || drag.id !== e.pointerId) return;
+        lastTouch = performance.now();
+        const dx = e.clientX - drag.x;
+        const dy = e.clientY - drag.y;
+        const w = deck.offsetWidth || 400;
+        const vx = drag.vx;
+        drag = null;
+
+        if (isThrow(dx, vx, w)) {
+          throwTop(dx, dx, dy, dy);
+        } else {
+          updateDeck(null);
+        }
+      }
+
+      cards.forEach(card => {
+        card.addEventListener('pointerdown', onPointerDown);
+        card.addEventListener('pointermove', onPointerMove);
+        card.addEventListener('pointerup', onPointerUp);
+        card.addEventListener('pointercancel', onPointerUp);
+      });
+
+      // Botões de navegação
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          lastTouch = performance.now();
+          pullBack();
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          lastTouch = performance.now();
+          throwTop(1);
+        });
+      }
+
+      // Teclas de seta
+      root.addEventListener('keydown', (e) => {
+        lastTouch = performance.now();
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          throwTop(1);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          pullBack();
+        }
+      });
+
+      // Autoplay com IntersectionObserver
+      let seen = true;
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(([entry]) => {
+          seen = entry.isIntersecting;
+        });
+        io.observe(root);
+      }
+
+      setInterval(() => {
+        if (!seen || document.hidden || performance.now() - lastTouch < autoplayDelay) return;
+        throwTop(1);
+      }, autoplayDelay);
+
+      // Inicialização do estado inicial
+      updateDeck(null);
+      initIcons();
+    })();
+
+    // 2.8 Portfólio · Animated 3D Cards & Glass Folder Filter
+    // ─────────────────────────────────────────────────────────────
+    // EDITE AQUI: lista de projetos do portfólio.
+    //  - image: preview real em assets/portfolio/ (gerado por scripts/capturar-previews.ps1)
+    //  - demo: true exibe o selo "Projeto demonstrativo"
+    // ─────────────────────────────────────────────────────────────
+    const PORTFOLIO_PROJECTS = [
+      {
+        id: 'hub-saude',
+        title: 'Hub de Agendamento — Saúde',
+        category: 'Saúde & Bem-estar',
+        description: 'Site profissional com apresentação, informações sobre atendimento e agendamento de consultas.',
+        url: 'https://hub-agendamento-saude.marianamello0406.workers.dev/',
+        image: 'assets/portfolio/hub-agendamento-saude.png',
+        demo: true
+      },
+      {
+        id: 'maison-sucre',
+        title: 'Maison Sucre — Catálogo de Confeitaria',
+        category: 'Gastronomia & Catálogo Digital',
+        description: 'Catálogo de confeitaria artesanal com produtos, seleção de pedidos e envio pelo WhatsApp.',
+        url: 'https://catalago-confeitaria.marianamello0406.workers.dev/',
+        image: 'assets/portfolio/maison-sucre-confeitaria.png',
+        demo: true
+      },
+      {
+        id: 'hub-vet',
+        title: 'Hub de Agendamento Veterinário',
+        category: 'Pet & Saúde',
+        description: 'Site de atendimento veterinário com pré-agendamento personalizado e informações sobre os serviços.',
+        url: 'https://hub-agendamento-vet.marianamello0406.workers.dev/',
+        image: 'assets/portfolio/hub-agendamento-vet.png',
+        demo: true
+      },
+      {
+        id: 'camilla-ugc',
+        title: 'Camilla Ferreira — Portfólio UGC',
+        category: 'Creator Economy',
+        description: 'Portfólio digital para criadora de conteúdo, com galeria, apresentação profissional, serviços e mídia kit.',
+        url: 'https://portfolio-camilla-ferreira.marianamello0406.workers.dev/',
+        image: 'assets/portfolio/camilla-ferreira-ugc.png',
+        demo: true
+      },
+      {
+        id: 'meus-achadinhos',
+        title: 'Meus Achadinhos — Vitrine de Afiliados',
+        category: 'Vitrine Digital',
+        description: 'Vitrine de produtos com busca e organização de recomendações.',
+        url: 'https://vitrine-modelo-afiliados.marianamello0406.workers.dev/',
+        image: 'assets/portfolio/meus-achadinhos-afiliados.png',
+        demo: true
+      }
+    ];
+
+    const PORTFOLIO_CATEGORIES = [
+      { id: 'todos', label: 'Todos', icon: 'layers' },
+      { id: 'saude', label: 'Saúde & Bem-estar', icon: 'heart-pulse' },
+      { id: 'gastronomia', label: 'Gastronomia', icon: 'utensils' },
+      { id: 'pet', label: 'Pet & Saúde', icon: 'paw-print' },
+      { id: 'ugc', label: 'Portfólios UGC', icon: 'video' },
+      { id: 'vitrines', label: 'Vitrines Digitais', icon: 'shopping-bag' }
+    ];
+
+    (function initPortfolio3DCards() {
+      const grid = document.getElementById('p3d-grid');
+      const filterBar = document.getElementById('gfolder-filter-bar');
+      if (!grid) return;
+
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      let activeCategory = 'todos';
+
+      function matchesCategory(p, catId) {
+        if (catId === 'todos') return true;
+        if (catId === 'saude') return p.category.includes('Saúde') && !p.category.includes('Pet');
+        if (catId === 'gastronomia') return p.category.includes('Gastronomia');
+        if (catId === 'pet') return p.category.includes('Pet');
+        if (catId === 'ugc') return p.category.includes('Creator') || p.id === 'camilla-ugc' || p.title.includes('UGC');
+        if (catId === 'vitrines') return p.category.includes('Vitrine');
+        return false;
+      }
+
+      // Renderiza as mini pastas de vidro (Glass Folder Tabs)
+      if (filterBar) {
+        filterBar.innerHTML = PORTFOLIO_CATEGORIES.map((cat) => {
+          const isSelected = cat.id === activeCategory;
+          const count = PORTFOLIO_PROJECTS.filter((p) => matchesCategory(p, cat.id)).length;
+          return `
+            <button type="button" class="gfolder-tab ${isSelected ? 'is-active' : ''}"
+                    data-cat="${cat.id}" role="tab" aria-selected="${isSelected ? 'true' : 'false'}"
+                    aria-label="Filtrar por ${esc(cat.label)}">
+              <span class="gf-icon-wrapper" aria-hidden="true">
+                <i data-lucide="folder" class="gf-icon gf-icon-closed"></i>
+                <i data-lucide="folder-open" class="gf-icon gf-icon-open"></i>
+              </span>
+              <span>${esc(cat.label)}</span>
+              <span class="gf-badge">${count}</span>
+            </button>
+          `;
+        }).join('');
+
+        filterBar.querySelectorAll('.gfolder-tab').forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const catId = tab.getAttribute('data-cat');
+            if (!catId || catId === activeCategory) return;
+            activeCategory = catId;
+
+            // Atualiza o estado visual das pastas
+            filterBar.querySelectorAll('.gfolder-tab').forEach((t) => {
+              const isSelected = t.getAttribute('data-cat') === activeCategory;
+              t.classList.toggle('is-active', isSelected);
+              t.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            });
+
+            // Re-renderiza os cards com animação imediata
+            renderCards(true);
+          });
+        });
+      }
+
+      function renderCards(animateImmediate = false) {
+        const filtered = PORTFOLIO_PROJECTS.filter((p) => matchesCategory(p, activeCategory));
+
+        // Ajusta grid para centralizar quando filtrado em 1 ou 2 projetos
+        if (filtered.length === 1) {
+          grid.classList.add('is-single');
+          grid.classList.remove('is-double');
+        } else if (filtered.length === 2) {
+          grid.classList.add('is-double');
+          grid.classList.remove('is-single');
+        } else {
+          grid.classList.remove('is-single', 'is-double');
+        }
+
+        grid.innerHTML = filtered.map((p) => `
+          <div class="p3d-item">
+            <article class="p3d-card" data-url="${esc(p.url)}" role="link" tabindex="0"
+                     aria-label="Visualizar projeto ${esc(p.title)}">
+              <div class="p3d-media">
+                <img src="${esc(p.image)}" alt="Preview do site ${esc(p.title)}" loading="lazy"
+                     onerror="this.style.display='none'">
+              </div>
+              <div class="p3d-shade"></div>
+              <svg class="p3d-pattern" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <pattern id="dots-${esc(p.id)}" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="1" fill="currentColor"></circle>
+                  </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#dots-${esc(p.id)})"></rect>
+              </svg>
+              <div class="p3d-glare"></div>
+              <div class="p3d-edge"></div>
+
+              <div class="p3d-content">
+                <div class="p3d-top">
+                  <span class="p3d-badge">${esc(p.category)}</span>
+                  ${p.demo ? '<span class="p3d-demo">Projeto demonstrativo</span>' : ''}
+                </div>
+                <div class="p3d-body">
+                  <h3 class="p3d-title">${esc(p.title)}</h3>
+                  <p class="p3d-desc">${esc(p.description)}</p>
+                  <a class="p3d-btn" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer"
+                     aria-label="Visualizar projeto ${esc(p.title)} (abre em nova aba)">
+                    <span>Visualizar projeto</span>
+                    <span aria-hidden="true" style="font-size:1.15em;line-height:1">↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        `).join('');
+
+        // Clique no card inteiro abre o projeto diretamente em nova aba
+        grid.querySelectorAll('.p3d-card').forEach((card) => {
+          card.addEventListener('click', (e) => {
+            if (e.target.closest('.p3d-btn')) return;
+            const url = card.getAttribute('data-url');
+            if (url) {
+              window.open(url, '_blank', 'noopener,noreferrer');
+            }
+          });
+
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              if (e.target.closest('.p3d-btn')) return;
+              e.preventDefault();
+              const url = card.getAttribute('data-url');
+              if (url) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+              }
+            }
+          });
+        });
+
+        // Entrada escalonada dos cards
+        const items = Array.from(grid.querySelectorAll('.p3d-item'));
+        if (animateImmediate) {
+          items.forEach((el, idx) => {
+            setTimeout(() => el.classList.add('is-visible'), idx * 80);
+          });
+        } else if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const idx = items.indexOf(entry.target);
+              setTimeout(() => entry.target.classList.add('is-visible'), (idx % 3) * 90);
+              io.unobserve(entry.target);
+            });
+          }, { rootMargin: '0px 0px -50px 0px', threshold: 0.15 });
+          items.forEach((el) => io.observe(el));
+        } else {
+          items.forEach((el) => el.classList.add('is-visible'));
+        }
+
+        // Inclinação 3D com estabilização no botão
+        const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+          && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (canTilt) {
+          const MAX_TILT = 5;
+          grid.querySelectorAll('.p3d-card').forEach((card) => {
+            const btn = card.querySelector('.p3d-btn');
+            let isOverBtn = false;
+
+            if (btn) {
+              btn.addEventListener('mouseenter', () => {
+                isOverBtn = true;
+                card.style.setProperty('--rx', '0deg');
+                card.style.setProperty('--ry', '0deg');
+              });
+              btn.addEventListener('mouseleave', () => {
+                isOverBtn = false;
+              });
+            }
+
+            card.addEventListener('mouseenter', () => card.classList.add('is-hovered'));
+            card.addEventListener('mousemove', (e) => {
+              if (isOverBtn) return;
+              const r = card.getBoundingClientRect();
+              const px = (e.clientX - r.left) / r.width;
+              const py = (e.clientY - r.top) / r.height;
+              card.style.setProperty('--ry', ((px - 0.5) * MAX_TILT * 2).toFixed(2) + 'deg');
+              card.style.setProperty('--rx', ((0.5 - py) * MAX_TILT * 2).toFixed(2) + 'deg');
+              card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+              card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+            });
+            card.addEventListener('mouseleave', () => {
+              card.classList.remove('is-hovered');
+              card.style.setProperty('--rx', '0deg');
+              card.style.setProperty('--ry', '0deg');
+            });
+          });
+        }
+
+        initIcons();
+      }
+
+      // Render inicial dos cards e inicialização de ícones
+      renderCards(false);
+    })();
+
+    // 2.7 Testimonial Carousel Controller (Framer Motion Stack Port)
+    (function initTestimonialCarousel() {
+      const container = document.getElementById('testimonial-stack');
+      const dotsContainer = document.getElementById('testimonial-dots');
+      if (!container) return;
+
+      const testimonials = [
+        {
+          id: 1,
+          name: "Joyce Barcelos",
+          role: "Cliente Satisfeita · Portfólio Personalizado",
+          avatar: "assets/joyce-barcelos.jpg",
+          description: "Gostaria de agradecer à você Mari pelo lindo portfólio, pelo carinho, dedicação e capricho em cada detalhe. Ficou maravilhoso eu amei !Seu trabalho demonstra muito talento, cuidado e profissionalismo. Estou muito feliz e satisfeita com o resultado. Que Deus continue abençoando suas mãos e seu talento, trazendo ainda mais sucesso e reconhecimento. Muito obrigada por tudo!"
+        },
+        {
+          id: 2,
+          name: "Joyce Barcelos",
+          role: "Destaque de Avaliação 5 Estrelas ★★★★★",
+          avatar: "assets/joyce-barcelos.jpg",
+          description: "“Seu trabalho demonstra muito talento, cuidado e profissionalismo. Estou muito feliz e satisfeita com o resultado!” — Cada detalhe do projeto foi pensado com muito capricho, carinho e exclusividade visual."
+        },
+        {
+          id: 3,
+          name: "Seu Projeto Aqui",
+          role: "Próxima Experiência Digital",
+          avatar: "assets/joyce-barcelos.jpg",
+          description: "Pronto para elevar o posicionamento da sua marca e ter um site ou portfólio autoral à altura do seu trabalho? Vamos construir seu projeto juntos com a mesma dedicação, afeto e excelência."
+        }
+      ];
+
+      const n = testimonials.length;
+      let currentIndex = 0;
+      let isBusy = false;
+      let dragStartX = 0;
+      let dragCurrentX = 0;
+      let isDragging = false;
+      let activeCardEl = null;
+
+      // Render cards
+      container.innerHTML = testimonials.map((item, idx) => `
+        <div class="testimonial-card border-gradient" data-idx="${idx}">
+          <div class="testimonial-nav-arrows">
+            <button type="button" class="testimonial-arrow-btn prev-arrow" aria-label="Depoimento anterior">&larr;</button>
+            <button type="button" class="testimonial-arrow-btn next-arrow" aria-label="Próximo depoimento">&rarr;</button>
+          </div>
+          
+          <div class="testimonial-avatar-wrapper">
+            <img src="${item.avatar}" alt="${item.name}" class="testimonial-avatar" />
+            <div class="testimonial-verified-badge" title="Cliente Verificada">
+              <i data-lucide="check" style="width:12px;height:12px"></i>
+            </div>
+          </div>
+
+          <div class="testimonial-stars">
+            <i data-lucide="star" style="width:16px;height:16px;fill:var(--gold)"></i>
+            <i data-lucide="star" style="width:16px;height:16px;fill:var(--gold)"></i>
+            <i data-lucide="star" style="width:16px;height:16px;fill:var(--gold)"></i>
+            <i data-lucide="star" style="width:16px;height:16px;fill:var(--gold)"></i>
+            <i data-lucide="star" style="width:16px;height:16px;fill:var(--gold)"></i>
+          </div>
+
+          <h3 class="testimonial-name">${item.name}</h3>
+          <span class="testimonial-role">${item.role}</span>
+          <p class="testimonial-quote">“${item.description}”</p>
+        </div>
+      `).join('');
+
+      // Render dots
+      if (dotsContainer) {
+        dotsContainer.innerHTML = testimonials.map((_, i) => `
+          <button type="button" class="testimonial-dot ${i === 0 ? 'is-active' : ''}" data-dot="${i}" aria-label="Ir para depoimento ${i + 1}"></button>
+        `).join('');
+
+        dotsContainer.querySelectorAll('.testimonial-dot').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt(e.currentTarget.getAttribute('data-dot'), 10);
+            goToIndex(idx);
+          });
+        });
+      }
+
+      const cardEls = Array.from(container.querySelectorAll('.testimonial-card'));
+
+      function updateCardPoses(exitOffsetX = 0) {
+        cardEls.forEach((card, idx) => {
+          const isCurrent = idx === currentIndex;
+          const isPrev = idx === (currentIndex + 1) % n;
+          const isNext = idx === (currentIndex + 2) % n;
+
+          if (!isCurrent && !isPrev && !isNext) {
+            card.style.opacity = '0';
+            card.style.pointerEvents = 'none';
+            card.style.transform = 'scale(0.85) translateY(30px) rotate(-6deg)';
+            card.style.zIndex = '0';
+            return;
+          }
+
+          if (isCurrent) {
+            const rot = exitOffsetX / 20;
+            card.style.zIndex = '3';
+            card.style.opacity = '1';
+            card.style.transform = `translate(${exitOffsetX}px, 0px) scale(1) rotate(${rot}deg)`;
+            card.style.pointerEvents = 'auto';
+            card.setAttribute('data-current', 'true');
+          } else if (isPrev) {
+            card.style.zIndex = '2';
+            card.style.opacity = '0.65';
+            card.style.transform = 'translate(0px, 12px) scale(0.95) rotate(-2.5deg)';
+            card.style.pointerEvents = 'none';
+            card.removeAttribute('data-current');
+          } else if (isNext) {
+            card.style.zIndex = '1';
+            card.style.opacity = '0.35';
+            card.style.transform = 'translate(0px, 24px) scale(0.90) rotate(-5deg)';
+            card.style.pointerEvents = 'none';
+            card.removeAttribute('data-current');
+          }
+        });
+
+        // Update dots
+        if (dotsContainer) {
+          dotsContainer.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
+            if (i === currentIndex) {
+              dot.classList.add('is-active');
+            } else {
+              dot.classList.remove('is-active');
+            }
+          });
+        }
+      }
+
+      function goToIndex(newIdx, direction = 1) {
+        if (isBusy || newIdx === currentIndex) return;
+        isBusy = true;
+
+        const currentCard = cardEls[currentIndex];
+        const exitDist = direction * 450;
+
+        currentCard.classList.add('is-exiting');
+        currentCard.style.transform = `translate(${exitDist}px, 0px) scale(0.95) rotate(${direction * 15}deg)`;
+        currentCard.style.opacity = '0';
+
+        setTimeout(() => {
+          currentCard.classList.remove('is-exiting');
+          currentIndex = newIdx;
+          updateCardPoses(0);
+          isBusy = false;
+        }, 220);
+      }
+
+      function nextTestimonial() {
+        goToIndex((currentIndex + 1) % n, 1);
+      }
+
+      function prevTestimonial() {
+        goToIndex((currentIndex - 1 + n) % n, -1);
+      }
+
+      // Arrow buttons
+      container.addEventListener('click', (e) => {
+        if (e.target.closest('.next-arrow')) {
+          e.stopPropagation();
+          nextTestimonial();
+        } else if (e.target.closest('.prev-arrow')) {
+          e.stopPropagation();
+          prevTestimonial();
+        }
+      });
+
+      // Pointer drag handlers on top card
+      function onPointerDown(e) {
+        if (isBusy) return;
+        if (e.target.closest('button, a')) return;
+        const topCard = cardEls[currentIndex];
+        if (!topCard || !topCard.contains(e.target)) return;
+
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragCurrentX = e.clientX;
+        activeCardEl = topCard;
+        topCard.classList.add('is-dragging');
+        topCard.setPointerCapture(e.pointerId);
+      }
+
+      function onPointerMove(e) {
+        if (!isDragging || !activeCardEl) return;
+        dragCurrentX = e.clientX;
+        const offsetX = dragCurrentX - dragStartX;
+        updateCardPoses(offsetX);
+      }
+
+      function onPointerUp(e) {
+        if (!isDragging || !activeCardEl) return;
+        isDragging = false;
+        activeCardEl.classList.remove('is-dragging');
+        const offsetX = dragCurrentX - dragStartX;
+        activeCardEl = null;
+
+        if (Math.abs(offsetX) > 85) {
+          const dir = offsetX > 0 ? 1 : -1;
+          goToIndex((currentIndex + 1) % n, dir);
+        } else {
+          updateCardPoses(0);
+        }
+      }
+
+      container.addEventListener('pointerdown', onPointerDown);
+      container.addEventListener('pointermove', onPointerMove);
+      container.addEventListener('pointerup', onPointerUp);
+      container.addEventListener('pointercancel', onPointerUp);
+
+      // Keyboard support
+      container.setAttribute('tabindex', '0');
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          nextTestimonial();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevTestimonial();
+        }
+      });
+
+      updateCardPoses(0);
+      initIcons();
+    })();
+
+    // 2.9 Blur Fade & Blur In Controller (Framer-Motion Reference Port)
+    (function initBlurEffects() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const elements = Array.from(document.querySelectorAll('.blur-fade, .blur-in'));
+      if (!elements.length) return;
+
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        elements.forEach((el) => {
+          el.classList.add('is-inview', 'is-done');
+        });
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+
+          // Aplica custom delay se definido via data-bf-delay ou data-bi-delay
+          const customDelay = el.getAttribute('data-bf-delay') || el.getAttribute('data-bi-delay');
+          if (customDelay) {
+            const delayVal = isNaN(customDelay) ? customDelay : `${customDelay}s`;
+            if (el.classList.contains('blur-in')) {
+              el.style.setProperty('--bi-delay', delayVal);
+            } else {
+              el.style.setProperty('--bf-delay', delayVal);
+            }
+          }
+
+          // Aplica custom duration se definido via data-bi-duration ou data-bf-duration
+          const customDuration = el.getAttribute('data-bi-duration') || el.getAttribute('data-bf-duration');
+          if (customDuration) {
+            const durVal = isNaN(customDuration) ? customDuration : `${customDuration}s`;
+            if (el.classList.contains('blur-in')) {
+              el.style.setProperty('--bi-duration', durVal);
+            } else {
+              el.style.setProperty('--bf-duration', durVal);
+            }
+          }
+
+          el.classList.add('is-inview');
+          observer.unobserve(el);
+
+          // Ao finalizar a transição, limpa filter e will-change para nitidez absoluta
+          const onTransitionEnd = (e) => {
+            if (e.target !== el) return;
+            el.classList.add('is-done');
+            el.removeEventListener('transitionend', onTransitionEnd);
+          };
+          el.addEventListener('transitionend', onTransitionEnd);
+        });
+      }, {
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.08
+      });
+
+      elements.forEach((el) => observer.observe(el));
+    })();
+  </script>
+
+  <!-- 3. Gerador de Estrelas Cintilantes da Aurora Background -->
+  <script>
+    (function initAuroraStars() {
+      const container = document.getElementById('aurora-stars');
+      if (!container) return;
+      const starCount = 65;
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'aurora-star';
+        const rand = Math.random();
+        const size = rand > 0.85 ? 2.2 : (rand > 0.45 ? 1.5 : 1);
+        const posX = (Math.random() * 100).toFixed(2);
+        const posY = (Math.random() * 100).toFixed(2);
+        const duration = (Math.random() * 3.2 + 2.4).toFixed(2);
+        const delay = (Math.random() * 5).toFixed(2);
+        const maxOpacity = (Math.random() * 0.45 + 0.35).toFixed(2);
+
+        star.style.cssText = `
+          left: ${posX}%;
+          top: ${posY}%;
+          width: ${size}px;
+          height: ${size}px;
+          --star-max-opacity: ${maxOpacity};
+          animation-duration: ${duration}s;
+          animation-delay: ${delay}s;
+        `;
+        fragment.appendChild(star);
+      }
+      container.appendChild(fragment);
+    })();
+  </script>
+</body>
+</html>
