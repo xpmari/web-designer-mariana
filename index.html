@@ -1373,6 +1373,127 @@
       }
     }
 
+    /* ─── ÁREA DE ROLAGEM INTERNA DO PORTFÓLIO (Scroll01 Port) ─ */
+    .p3d-scroll-shell {
+      position: relative;
+      width: 100%;
+    }
+    .p3d-scroll-progress-track {
+      display: none;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 0.85rem;
+    }
+    .p3d-scroll-shell.is-scrollable.has-overflow .p3d-scroll-progress-track {
+      display: block;
+    }
+    .p3d-scroll-progress-bar {
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-brand);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.55);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 0.14s ease-out;
+      border-radius: 9999px;
+    }
+    .p3d-scroll-viewport {
+      position: relative;
+    }
+    .p3d-scroll-viewport:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 4px;
+      border-radius: 1rem;
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport {
+      max-height: min(70vh, 660px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      overscroll-behavior-y: auto;
+      padding: 14px 12px 28px 6px;
+      margin: -14px -12px 0 -6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 105, 180, 0.35) rgba(255, 255, 255, 0.03);
+      scroll-behavior: smooth;
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport::-webkit-scrollbar {
+      width: 6px;
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 9999px;
+      margin: 12px 0;
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport::-webkit-scrollbar-thumb {
+      background: rgba(255, 105, 180, 0.30);
+      border-radius: 9999px;
+      transition: background 0.2s ease;
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 105, 180, 0.65);
+    }
+
+    /* Máscara suave nas bordas quando há mais projetos para rolar */
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport.can-scroll-bottom:not(.can-scroll-top) {
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black calc(100% - 56px), transparent 100%);
+      mask-image: linear-gradient(to bottom, black 0%, black calc(100% - 56px), transparent 100%);
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport.can-scroll-top.can-scroll-bottom {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 28px, black calc(100% - 56px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 28px, black calc(100% - 56px), transparent 100%);
+    }
+    .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport.can-scroll-top:not(.can-scroll-bottom) {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 28px, black 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 28px, black 100%);
+    }
+
+    .p3d-scroll-hint {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+      opacity: 0.85;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+    }
+    .p3d-scroll-shell.is-scrollable.has-overflow .p3d-scroll-hint {
+      display: flex;
+    }
+    .p3d-scroll-shell.is-scrollable.at-bottom .p3d-scroll-hint {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    .p3d-scroll-hint svg,
+    .p3d-scroll-hint i {
+      color: var(--pink);
+      animation: p3dHintBounce 2s ease-in-out infinite;
+    }
+    @keyframes p3dHintBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+
+    @media (max-width: 1024px) {
+      .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport {
+        max-height: min(68vh, 620px);
+      }
+    }
+    @media (max-width: 640px) {
+      .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport {
+        max-height: min(66vh, 520px);
+        padding: 10px 10px 24px 4px;
+        margin: -10px -10px 0 -4px;
+      }
+    }
+
     /* ─── CARROSSEL DE TESTIMONIALS (Framer-Motion Port) ─ */
     .testimonial-carousel-root {
       display: flex;
@@ -2422,6 +2543,16 @@
         transform: none !important;
         transition: none !important;
       }
+      .p3d-scroll-shell.is-scrollable .p3d-scroll-viewport {
+        scroll-behavior: auto;
+      }
+      .p3d-scroll-hint svg,
+      .p3d-scroll-hint i {
+        animation: none !important;
+      }
+      .p3d-scroll-progress-bar {
+        transition: none !important;
+      }
     }
   </style>
 </head>
@@ -2761,7 +2892,23 @@
           </div>
         </div>
 
-        <div class="p3d-grid" id="p3d-grid" aria-live="polite"></div>
+        <!-- Área de Rolagem Interna para Portfólio (Scroll01 Port) -->
+        <div class="p3d-scroll-shell is-scrollable" id="p3d-scroll-shell">
+          <div class="p3d-scroll-progress-track" aria-hidden="true">
+            <div class="p3d-scroll-progress-bar" id="p3d-scroll-progress-bar"></div>
+          </div>
+
+          <div class="p3d-scroll-viewport" id="p3d-scroll-viewport" role="region" aria-label="Projetos desenvolvidos">
+            <div class="p3d-grid" id="p3d-grid" aria-live="polite"></div>
+          </div>
+
+          <div class="p3d-scroll-hint" id="p3d-scroll-hint" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m7 6 5 5 5-5"/><path d="m7 13 5 5 5-5"/>
+            </svg>
+            <span>Role para ver mais projetos</span>
+          </div>
+        </div>
 
         <p class="portfolio-note blur-fade" data-bf-delay="0.25">
           Projetos marcados como <strong style="color:var(--text-muted)">demonstrativos</strong> foram criados para apresentar soluções e estilos de trabalho.
@@ -3497,11 +3644,84 @@
     (function initPortfolio3DCards() {
       const grid = document.getElementById('p3d-grid');
       const filterBar = document.getElementById('gfolder-filter-bar');
+      const scrollShell = document.getElementById('p3d-scroll-shell');
+      const scrollViewport = document.getElementById('p3d-scroll-viewport');
+      const progressBar = document.getElementById('p3d-scroll-progress-bar');
       if (!grid) return;
 
       const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
       let activeCategory = 'todos';
+      let activeIO = null;
+      let scrollTicking = false;
+
+      function revealVisibleItemsInViewport() {
+        if (!scrollViewport) return;
+        const vRect = scrollViewport.getBoundingClientRect();
+        grid.querySelectorAll('.p3d-item:not(.is-visible)').forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top < vRect.bottom + 40 && r.bottom > vRect.top - 40) {
+            el.classList.add('is-visible');
+          }
+        });
+      }
+
+      function updateScrollState() {
+        if (!scrollShell || !scrollViewport) return;
+        const isScrollable = scrollShell.classList.contains('is-scrollable');
+        if (!isScrollable) {
+          scrollShell.classList.remove('has-overflow', 'at-bottom');
+          scrollViewport.classList.remove('can-scroll-top', 'can-scroll-bottom');
+          scrollViewport.removeAttribute('tabindex');
+          if (progressBar) progressBar.style.transform = 'scaleX(0)';
+          return;
+        }
+
+        const maxScroll = Math.max(0, scrollViewport.scrollHeight - scrollViewport.clientHeight);
+        const hasOverflow = maxScroll > 8;
+        scrollShell.classList.toggle('has-overflow', hasOverflow);
+
+        if (!hasOverflow) {
+          scrollShell.classList.remove('at-bottom');
+          scrollViewport.classList.remove('can-scroll-top', 'can-scroll-bottom');
+          scrollViewport.removeAttribute('tabindex');
+          if (progressBar) progressBar.style.transform = 'scaleX(0)';
+          return;
+        }
+
+        scrollViewport.setAttribute('tabindex', '0');
+        const top = scrollViewport.scrollTop;
+        const progress = Math.min(1, Math.max(0, top / maxScroll));
+        const canTop = top > 8;
+        const canBottom = (maxScroll - top) > 12;
+
+        scrollViewport.classList.toggle('can-scroll-top', canTop);
+        scrollViewport.classList.toggle('can-scroll-bottom', canBottom);
+        scrollShell.classList.toggle('at-bottom', !canBottom);
+
+        if (progressBar) {
+          const visibleRatio = scrollViewport.clientHeight / scrollViewport.scrollHeight;
+          const barScale = Math.min(1, visibleRatio + progress * (1 - visibleRatio));
+          progressBar.style.transform = `scaleX(${barScale.toFixed(4)})`;
+        }
+
+        revealVisibleItemsInViewport();
+      }
+
+      if (scrollViewport) {
+        scrollViewport.addEventListener('scroll', () => {
+          if (scrollTicking) return;
+          scrollTicking = true;
+          requestAnimationFrame(() => {
+            scrollTicking = false;
+            updateScrollState();
+          });
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+          requestAnimationFrame(updateScrollState);
+        }, { passive: true });
+      }
 
       function matchesCategory(p, catId) {
         if (catId === 'todos') return true;
@@ -3553,6 +3773,19 @@
 
       function renderCards(animateImmediate = false) {
         const filtered = PORTFOLIO_PROJECTS.filter((p) => matchesCategory(p, activeCategory));
+
+        if (activeIO) {
+          activeIO.disconnect();
+          activeIO = null;
+        }
+
+        if (scrollShell && scrollViewport) {
+          const shouldScroll = activeCategory === 'todos' || filtered.length > 3;
+          scrollShell.classList.toggle('is-scrollable', shouldScroll);
+          if (animateImmediate) {
+            scrollViewport.scrollTop = 0;
+          }
+        }
 
         // Ajusta grid para centralizar quando filtrado em 1 ou 2 projetos
         if (filtered.length === 1) {
@@ -3628,20 +3861,23 @@
 
         // Entrada escalonada dos cards
         const items = Array.from(grid.querySelectorAll('.p3d-item'));
-        if (animateImmediate) {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) {
+          items.forEach((el) => el.classList.add('is-visible'));
+        } else if (animateImmediate) {
           items.forEach((el, idx) => {
-            setTimeout(() => el.classList.add('is-visible'), idx * 80);
+            setTimeout(() => el.classList.add('is-visible'), Math.min(idx, 5) * 80);
           });
         } else if ('IntersectionObserver' in window) {
-          const io = new IntersectionObserver((entries) => {
+          activeIO = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
               const idx = items.indexOf(entry.target);
               setTimeout(() => entry.target.classList.add('is-visible'), (idx % 3) * 90);
-              io.unobserve(entry.target);
+              if (activeIO) activeIO.unobserve(entry.target);
             });
-          }, { rootMargin: '0px 0px -50px 0px', threshold: 0.15 });
-          items.forEach((el) => io.observe(el));
+          }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+          items.forEach((el) => activeIO.observe(el));
         } else {
           items.forEach((el) => el.classList.add('is-visible'));
         }
@@ -3686,6 +3922,7 @@
         }
 
         initIcons();
+        requestAnimationFrame(updateScrollState);
       }
 
       // Render inicial dos cards e inicialização de ícones
